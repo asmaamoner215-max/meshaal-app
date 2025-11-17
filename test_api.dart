@@ -83,36 +83,3 @@ void main() async {
     print('\n❌ خطأ غير متوقع: $e');
   }
 }
-
-class LoggingInterceptor extends Interceptor {
-  @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    print('\n📨 طلب جديد:');
-    print('  Method: ${options.method}');
-    print('  URL: ${options.uri}');
-    print('  Headers: ${options.headers}');
-    if (options.data != null) {
-      print('  Data: ${options.data}');
-    }
-    super.onRequest(options, handler);
-  }
-
-  @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    print('\n📨 استجابة:');
-    print('  Status: ${response.statusCode}');
-    print('  Data: ${response.data}');
-    super.onResponse(response, handler);
-  }
-
-  @override
-  void onError(DioException err, ErrorInterceptorHandler handler) {
-    print('\n⚠️ خطأ:');
-    print('  Type: ${err.type}');
-    print('  Message: ${err.message}');
-    if (err.response != null) {
-      print('  Response: ${err.response!.data}');
-    }
-    super.onError(err, handler);
-  }
-}
