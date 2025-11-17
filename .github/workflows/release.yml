@@ -12,6 +12,10 @@ jobs:
   build-ios:
     name: Build & Release iOS
     runs-on: macos-latest
+    env:
+      APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+      APP_STORE_CONNECT_API_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+      APP_STORE_CONNECT_API_KEY_PATH: $HOME/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8
     
     steps:
       - uses: actions/checkout@v3
@@ -36,7 +40,7 @@ jobs:
       - name: Setup Apple credentials
         run: |
           mkdir -p ~/private_keys
-          echo "${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}" | base64 --decode > ~/private_keys/authkey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8
+          echo "${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}" | base64 --decode > ~/private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8
       
       - name: Build iOS Archive
         run: |
@@ -46,9 +50,8 @@ jobs:
             -configuration Release \
             -derivedDataPath build/ios \
             -destination 'generic/platform=iOS' \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO \
             -archivePath build/ios/Runner.xcarchive \
+            -allowProvisioningUpdates \
             archive
       
       - name: Create IPA
@@ -57,14 +60,15 @@ jobs:
           xcodebuild -exportArchive \
             -archivePath build/ios/Runner.xcarchive \
             -exportOptionsPlist ExportOptions.plist \
-            -exportPath build/ios/ipa
+            -exportPath build/ios/ipa \
+            -allowProvisioningUpdates
       
       - name: Upload IPA to App Store Connect
         run: |
           xcrun altool --upload-app \
             --type ios \
-            --file "ios/build/ios/ipa/Meshaal.ipa" \
-            --apiKey "$HOME/private_keys/authkey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8" \
+            --file "ios/build/ios/ipa/Runner.ipa" \
+            --apiKey "${{ secrets.APP_STORE_CONNECT_KEY_ID }}" \
             --apiIssuer "${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}" \
             --show-progress
 
