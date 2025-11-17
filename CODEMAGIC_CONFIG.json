@@ -1,0 +1,330 @@
+{
+  "app_info": {
+    "name": "Meshaal",
+    "description": "Medical Services Mobile Application",
+    "version": "1.0.2",
+    "build_number": 7,
+    "package_name_android": "com.ocoda.weam",
+    "bundle_id_ios": "com.ocoda.weam",
+    "repository": "https://github.com/asmaamoner215-max/meshaal-app.git"
+  },
+  "flutter_config": {
+    "min_sdk": "3.3.0",
+    "max_sdk": "4.0.0",
+    "channels": ["stable", "beta"],
+    "dart_language_version": "3.3.0"
+  },
+  "android_config": {
+    "gradle_version": "8.11.1",
+    "agp_version": "8.9.1",
+    "compile_sdk": 36,
+    "min_sdk": 24,
+    "target_sdk": 36,
+    "java_version": "17",
+    "kotlin_version": "1.7.10",
+    "ndk_version": "latest"
+  },
+  "ios_config": {
+    "deployment_target": "12.0",
+    "workspace": "ios/Runner.xcworkspace",
+    "scheme": "Runner",
+    "configuration": "Release",
+    "xcode_version": "15.0+"
+  },
+  "signing": {
+    "android": {
+      "keystore_file": "android/upload-keystore.jks",
+      "keystore_path": "../upload-keystore.jks",
+      "key_alias": "upload",
+      "store_password": "YOUR_STORE_PASSWORD",
+      "key_password": "YOUR_KEY_PASSWORD",
+      "validity_days": 10000,
+      "key_size": 2048,
+      "algorithm": "RSA"
+    },
+    "ios": {
+      "team_id": "YOUR_TEAM_ID",
+      "development_team": "YOUR_DEVELOPMENT_TEAM",
+      "provisioning_profile": "YOUR_PROVISIONING_PROFILE",
+      "certificate_type": "iOS Distribution",
+      "signing_identity": "Distribution"
+    }
+  },
+  "firebase": {
+    "android": {
+      "file": "android/app/google-services.json",
+      "required": true,
+      "source": "Firebase Console"
+    },
+    "ios": {
+      "file": "ios/Runner/GoogleService-Info.plist",
+      "required": true,
+      "source": "Firebase Console"
+    },
+    "services": [
+      "Authentication",
+      "Firestore Database",
+      "Cloud Storage",
+      "Cloud Functions",
+      "Cloud Messaging"
+    ]
+  },
+  "dependencies": {
+    "critical": [
+      {
+        "name": "firebase_core",
+        "version": "4.2.1",
+        "purpose": "Firebase initialization"
+      },
+      {
+        "name": "flutter_bloc",
+        "version": "8.1.6",
+        "purpose": "State management"
+      },
+      {
+        "name": "google_maps_flutter",
+        "version": "2.14.0",
+        "purpose": "Maps integration"
+      },
+      {
+        "name": "geolocator",
+        "version": "14.0.2",
+        "purpose": "Location services"
+      },
+      {
+        "name": "image_picker",
+        "version": "1.2.1",
+        "purpose": "Image selection"
+      }
+    ],
+    "important": [
+      {
+        "name": "flutter_local_notifications",
+        "version": "19.5.0",
+        "purpose": "Local notifications"
+      },
+      {
+        "name": "easy_localization",
+        "version": "3.0.4",
+        "purpose": "Multi-language support"
+      },
+      {
+        "name": "dio",
+        "version": "5.7.0",
+        "purpose": "HTTP client"
+      },
+      {
+        "name": "shared_preferences",
+        "version": "2.3.3",
+        "purpose": "Local storage"
+      }
+    ]
+  },
+  "codemagic": {
+    "github_repository": "asmaamoner215-max/meshaal-app",
+    "codemagic_url": "https://codemagic.io",
+    "workflows": [
+      {
+        "name": "ios-release-build",
+        "trigger": "push to main",
+        "output": "ios .app"
+      },
+      {
+        "name": "android-release-build",
+        "trigger": "push to main",
+        "output": "apk & aab"
+      },
+      {
+        "name": "ios-beta-build",
+        "trigger": "push to develop",
+        "output": "ios debug app"
+      },
+      {
+        "name": "android-beta-build",
+        "trigger": "push to develop",
+        "output": "android debug apk"
+      }
+    ],
+    "environment_variables": [
+      {
+        "name": "GOOGLE_PLAY_CREDENTIALS",
+        "type": "secret",
+        "description": "Base64 encoded Google Play service account JSON",
+        "required_for": "Android Release"
+      },
+      {
+        "name": "APP_STORE_CONNECT_PRIVATE_KEY",
+        "type": "secret",
+        "description": "Base64 encoded App Store Connect private key",
+        "required_for": "iOS Release"
+      },
+      {
+        "name": "APP_STORE_CONNECT_KEY_ID",
+        "type": "secret",
+        "description": "App Store Connect key ID",
+        "required_for": "iOS Release"
+      },
+      {
+        "name": "APP_STORE_CONNECT_ISSUER_ID",
+        "type": "secret",
+        "description": "App Store Connect issuer ID",
+        "required_for": "iOS Release"
+      }
+    ]
+  },
+  "app_store_deployment": {
+    "app_store_connect": {
+      "url": "https://appstoreconnect.apple.com",
+      "bundle_id": "com.ocoda.weam",
+      "app_name": "Meshaal",
+      "category": "Medical",
+      "content_rating": "4+"
+    },
+    "google_play": {
+      "url": "https://play.google.com/console",
+      "package_name": "com.ocoda.weam",
+      "app_name": "Meshaal",
+      "category": "Medical",
+      "content_rating": "Unrated"
+    }
+  },
+  "developer_accounts": {
+    "apple": {
+      "developer_account_url": "https://developer.apple.com/account",
+      "app_store_connect_url": "https://appstoreconnect.apple.com",
+      "required_credentials": [
+        "Apple ID email",
+        "App-Specific Password",
+        "Team ID",
+        "Development Certificate",
+        "Distribution Certificate",
+        "Provisioning Profiles"
+      ]
+    },
+    "google": {
+      "google_play_console_url": "https://play.google.com/console",
+      "firebase_console_url": "https://console.firebase.google.com",
+      "required_credentials": [
+        "Google Play Service Account JSON",
+        "Firebase Project ID",
+        "API Keys"
+      ]
+    }
+  },
+  "build_commands": {
+    "android": {
+      "debug_apk": "flutter build apk --debug",
+      "release_apk": "flutter build apk --release",
+      "app_bundle": "flutter build appbundle --release",
+      "verbose": "flutter build apk --verbose"
+    },
+    "ios": {
+      "release": "flutter build ios --release --no-codesign",
+      "debug": "flutter build ios --debug --no-codesign",
+      "simulator": "flutter build ios --simulator"
+    },
+    "general": {
+      "clean": "flutter clean",
+      "get_deps": "flutter pub get",
+      "upgrade_deps": "flutter pub upgrade",
+      "analyze": "flutter analyze",
+      "test": "flutter test",
+      "coverage": "flutter test --coverage"
+    }
+  },
+  "file_structure": {
+    "important_files": [
+      {
+        "path": "pubspec.yaml",
+        "description": "Project dependencies and configuration"
+      },
+      {
+        "path": "android/app/build.gradle",
+        "description": "Android build configuration"
+      },
+      {
+        "path": "ios/Runner.xcodeproj/project.pbxproj",
+        "description": "iOS project configuration"
+      },
+      {
+        "path": "lib/main.dart",
+        "description": "Application entry point"
+      },
+      {
+        "path": "lib/firebase_options.dart",
+        "description": "Firebase configuration"
+      },
+      {
+        "path": "android/app/google-services.json",
+        "description": "Android Firebase configuration"
+      },
+      {
+        "path": "ios/Runner/GoogleService-Info.plist",
+        "description": "iOS Firebase configuration"
+      }
+    ],
+    "key_directories": [
+      "lib/core",
+      "lib/features/auth",
+      "lib/features/user",
+      "lib/features/vendor",
+      "assets/translations",
+      "android/app/src/main"
+    ]
+  },
+  "testing": {
+    "unit_tests": "flutter test",
+    "integration_tests": "flutter drive --target=test_driver/app.dart",
+    "coverage": "flutter test --coverage",
+    "profile": "flutter run --profile"
+  },
+  "troubleshooting": {
+    "gradle_issues": {
+      "solution": "flutter clean && flutter pub get && flutter pub upgrade",
+      "verbose": "flutter build apk --verbose"
+    },
+    "firebase_issues": {
+      "solution": "Update google-services.json and GoogleService-Info.plist from Firebase Console"
+    },
+    "ios_signing": {
+      "solution": "Open ios/Runner.xcworkspace in Xcode and configure signing"
+    }
+  },
+  "checklist": {
+    "setup": [
+      "Flutter SDK installed and configured",
+      "Android Studio with SDK configured",
+      "Xcode with latest version",
+      "Java 17 installed",
+      "Git configured"
+    ],
+    "firebase": [
+      "Firebase Project created",
+      "google-services.json downloaded",
+      "GoogleService-Info.plist downloaded",
+      "Authentication enabled",
+      "Firestore Database enabled"
+    ],
+    "signing": [
+      "Android keystore created",
+      "key.properties configured",
+      "Apple Developer Account setup",
+      "Distribution Certificate created",
+      "Provisioning Profile created"
+    ],
+    "codemagic": [
+      "GitHub account connected",
+      "Codemagic account created",
+      "Repository connected to Codemagic",
+      "Environment variables configured",
+      "Signing certificates uploaded"
+    ],
+    "deployment": [
+      "App Store Connect app created",
+      "Google Play Console app created",
+      "App icons and screenshots prepared",
+      "App descriptions written",
+      "Privacy policy created"
+    ]
+  }
+}

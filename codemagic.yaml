@@ -1,0 +1,154 @@
+workflows:
+  ios-release-build:
+    name: iOS Release Build
+    environment:
+      ios: latest
+      xcode: latest
+      flutter: stable
+      cocoapods: default
+    triggering:
+      events:
+        - push
+        - tag
+      branch_patterns:
+        - pattern: 'main'
+          include: true
+      tag_patterns:
+        - pattern: 'v[0-9]+\.[0-9]+\.[0-9]+'
+          include: true
+
+    scripts:
+      - name: Get Flutter Dependencies
+        script: flutter pub get
+        
+      - name: Flutter Analyze
+        script: flutter analyze
+        
+      - name: Run Flutter Tests
+        script: flutter test --no-sound-null-safety 2>/dev/null || true
+        
+      - name: Build iOS Release
+        script: |
+          flutter build ios --release \
+            --no-codesign \
+            --build-number=$BUILD_NUMBER \
+            --build-name=1.0.2
+            
+    artifacts:
+      - build/ios/iphoneos/*.app
+      - build/ios/iphoneos/*.app/archived-expanded-entitlements.xcent
+    
+    publishing:
+      app_store_connect:
+        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        key_id: $APP_STORE_CONNECT_KEY_ID
+        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        submit_to_testflight: true
+
+  android-release-build:
+    name: Android Release Build
+    environment:
+      android: latest
+      java: 17
+      flutter: stable
+    triggering:
+      events:
+        - push
+        - tag
+      branch_patterns:
+        - pattern: 'main'
+          include: true
+      tag_patterns:
+        - pattern: 'v[0-9]+\.[0-9]+\.[0-9]+'
+          include: true
+
+    scripts:
+      - name: Get Flutter Dependencies
+        script: flutter pub get
+        
+      - name: Flutter Analyze
+        script: flutter analyze
+        
+      - name: Run Flutter Tests
+        script: flutter test --no-sound-null-safety 2>/dev/null || true
+        
+      - name: Build Android Release
+        script: |
+          flutter build apk --release \
+            --build-number=$BUILD_NUMBER \
+            --build-name=1.0.2
+      
+      - name: Build Android App Bundle
+        script: |
+          flutter build appbundle --release \
+            --build-number=$BUILD_NUMBER \
+            --build-name=1.0.2
+
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+      - build/app/outputs/bundle/release/app-release.aab
+
+    publishing:
+      google_play:
+        credentials: $GOOGLE_PLAY_CREDENTIALS
+        track: beta
+
+  ios-beta-build:
+    name: iOS Beta Build
+    environment:
+      ios: latest
+      xcode: latest
+      flutter: stable
+      cocoapods: default
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+
+    scripts:
+      - name: Get Flutter Dependencies
+        script: flutter pub get
+        
+      - name: Flutter Analyze
+        script: flutter analyze || true
+        
+      - name: Build iOS Debug
+        script: |
+          flutter build ios --debug \
+            --no-codesign \
+            --build-number=$BUILD_NUMBER \
+            --build-name=1.0.2-beta
+
+    artifacts:
+      - build/ios/iphoneos/*.app
+
+  android-beta-build:
+    name: Android Beta Build
+    environment:
+      android: latest
+      java: 17
+      flutter: stable
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+
+    scripts:
+      - name: Get Flutter Dependencies
+        script: flutter pub get
+        
+      - name: Flutter Analyze
+        script: flutter analyze || true
+        
+      - name: Build Android Debug APK
+        script: |
+          flutter build apk --debug \
+            --build-number=$BUILD_NUMBER \
+            --build-name=1.0.2-beta
+
+    artifacts:
+      - build/app/outputs/flutter-apk/app-debug.apk
