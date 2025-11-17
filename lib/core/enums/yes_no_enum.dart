@@ -1,0 +1,4 @@
+enum YesNoEnum{
+  yes,
+  no,
+}

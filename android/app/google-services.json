@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "339972616731",
+    "project_id": "weam-d1ae1",
+    "storage_bucket": "weam-d1ae1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339972616731:android:4b199dff3782a9cdd8febe",
+        "android_client_info": {
+          "package_name": "com.ocoda.weam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS49fle4SJ-PbnGl4uA1mdHdUjJ7Hl6Gw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
