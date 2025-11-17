@@ -63,7 +63,7 @@ class _RoadProgressScreenState extends State<RoadProgressScreen> {
     });
     final Uint8List markerIcon =
         await getBytesFromAsset(ImagesPath.mapLocation, 80.w.toInt());
-    currentIcon = BitmapDescriptor.fromBytes(markerIcon);
+    currentIcon = BitmapDescriptor.bytes(markerIcon);
 
     trackCarPosition();
     setState(() {

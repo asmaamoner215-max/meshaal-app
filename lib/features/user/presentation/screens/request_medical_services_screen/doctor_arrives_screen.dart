@@ -58,7 +58,7 @@ class _DoctorArrivesScreenState extends State<DoctorArrivesScreen> {
     });
     final Uint8List markerIcon =
         await getBytesFromAsset(ImagesPath.mapLocation, 80.w.toInt());
-    currentIcon = BitmapDescriptor.fromBytes(markerIcon);
+    currentIcon = BitmapDescriptor.bytes(markerIcon);
     setMarkers(latLng: const LatLng(24.7136, 46.6753), id: 'fId');
     setMarkers(latLng: const LatLng(24.715589, 46.636249), id: 'fId');
     getPolyLinePoints(const LatLng(24.7136, 46.6753));
