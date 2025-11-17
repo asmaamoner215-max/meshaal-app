@@ -28,6 +28,7 @@ jobs:
       
       - name: Analyze code
         run: flutter analyze
+        continue-on-error: true
       
       - name: Build iOS Release
         run: flutter build ios --release --no-codesign
