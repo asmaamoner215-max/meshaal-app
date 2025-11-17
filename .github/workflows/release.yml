@@ -1,0 +1,129 @@
+name: Release to App Store & Google Play
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    name: Build & Release iOS
+    runs-on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.0'
+          cache: true
+      
+      - name: Get dependencies
+        run: flutter pub get
+      
+      - name: Analyze code
+        run: flutter analyze
+      
+      - name: Build iOS
+        run: flutter build ios --release --no-codesign
+      
+      - name: Setup Apple credentials
+        run: |
+          mkdir -p ~/private_keys
+          echo "${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}" | base64 --decode > ~/private_keys/authkey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8
+      
+      - name: Build iOS App
+        run: |
+          cd ios
+          xcodebuild -workspace Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -derivedDataPath build/ios \
+            -destination 'generic/platform=iOS' \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            -archivePath build/ios/Runner.xcarchive \
+            archive
+      
+      - name: Create IPA
+        run: |
+          cd ios
+          xcodebuild -exportArchive \
+            -archivePath build/ios/Runner.xcarchive \
+            -exportOptionsPlist ExportOptions.plist \
+            -exportPath build/ios/ipa
+      
+      - name: Upload to App Store
+        run: |
+          xcrun altool --upload-app \
+            --type ios \
+            --file "ios/build/ios/ipa/Meshaal.ipa" \
+            --username "${{ secrets.APPLE_ID_EMAIL }}" \
+            --password "${{ secrets.APPLE_ID_PASSWORD }}" \
+            --show-progress
+      
+      - name: Upload to TestFlight (Alternative)
+        run: |
+          # استخدم API بدل altool (الأفضل)
+          xcrun notarytool store-credentials "AC_PASSWORD" \
+            --apple-id "${{ secrets.APPLE_ID_EMAIL }}" \
+            --team-id "${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}" \
+            --password "${{ secrets.APPLE_ID_PASSWORD }}"
+
+  build-android:
+    name: Build & Release Android
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.0'
+          cache: true
+      
+      - name: Get dependencies
+        run: flutter pub get
+      
+      - name: Analyze code
+        run: flutter analyze
+      
+      - name: Build APK
+        run: flutter build apk --release
+        env:
+          ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+      
+      - name: Build App Bundle
+        run: flutter build appbundle --release
+        env:
+          ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+      
+      - name: Upload to Google Play
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_CREDENTIALS }}
+          packageName: com.ocoda.weam
+          releaseFiles: 'build/app/outputs/bundle/release/app-release.aab'
+          track: beta
+          status: draft
+      
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-release
+          path: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
