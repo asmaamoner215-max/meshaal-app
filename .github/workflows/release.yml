@@ -42,7 +42,12 @@ jobs:
       - name: Install iOS dependencies
         run: |
           cd ios
-          pod install
+          pod install --repo-update
+
+      - name: Update Firebase Firestore Pod
+        run: |
+          cd ios
+          pod update Firebase/Firestore
 
       - name: Build iOS Release
         run: flutter build ios --release --no-codesign
