@@ -28,7 +28,7 @@ jobs:
       - name: Analyze code
         run: flutter analyze
       
-      - name: Build iOS
+      - name: Build iOS Release
         run: flutter build ios --release --no-codesign
       
       - name: Setup Apple credentials
@@ -36,7 +36,7 @@ jobs:
           mkdir -p ~/private_keys
           echo "${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}" | base64 --decode > ~/private_keys/authkey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8
       
-      - name: Build iOS App
+      - name: Build iOS Archive
         run: |
           cd ios
           xcodebuild -workspace Runner.xcworkspace \
@@ -57,22 +57,14 @@ jobs:
             -exportOptionsPlist ExportOptions.plist \
             -exportPath build/ios/ipa
       
-      - name: Upload to App Store
+      - name: Upload IPA to App Store Connect
         run: |
           xcrun altool --upload-app \
             --type ios \
             --file "ios/build/ios/ipa/Meshaal.ipa" \
-            --username "${{ secrets.APPLE_ID_EMAIL }}" \
-            --password "${{ secrets.APPLE_ID_PASSWORD }}" \
+            --apiKey "$HOME/private_keys/authkey_${{ secrets.APP_STORE_CONNECT_KEY_ID }}.p8" \
+            --apiIssuer "${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}" \
             --show-progress
-      
-      - name: Upload to TestFlight (Alternative)
-        run: |
-          # استخدم API بدل altool (الأفضل)
-          xcrun notarytool store-credentials "AC_PASSWORD" \
-            --apple-id "${{ secrets.APPLE_ID_EMAIL }}" \
-            --team-id "${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}" \
-            --password "${{ secrets.APPLE_ID_PASSWORD }}"
 
   build-android:
     name: Build & Release Android
@@ -115,13 +107,13 @@ jobs:
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_PLAY_CREDENTIALS }}
-          packageName: com.ocoda.weam
+          packageName: com.meshaal.meshaalCenter
           releaseFiles: 'build/app/outputs/bundle/release/app-release.aab'
           track: beta
           status: draft
       
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: android-release
           path: |
