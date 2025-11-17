@@ -1,33 +1,34 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 class LoggingInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    print('\n📨 طلب جديد:');
-    print('  Method: ${options.method}');
-    print('  URL: ${options.uri}');
-    print('  Headers: ${options.headers}');
+    debugPrint('\n📨 طلب جديد:');
+    debugPrint('  Method: ${options.method}');
+    debugPrint('  URL: ${options.uri}');
+    debugPrint('  Headers: ${options.headers}');
     if (options.data != null) {
-      print('  Data: ${options.data}');
+      debugPrint('  Data: ${options.data}');
     }
     super.onRequest(options, handler);
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    print('\n📨 استجابة:');
-    print('  Status: ${response.statusCode}');
-    print('  Data: ${response.data}');
+    debugPrint('\n📨 استجابة:');
+    debugPrint('  Status: ${response.statusCode}');
+    debugPrint('  Data: ${response.data}');
     super.onResponse(response, handler);
   }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    print('\n⚠️ خطأ:');
-    print('  Type: ${err.type}');
-    print('  Message: ${err.message}');
+    debugPrint('\n⚠️ خطأ:');
+    debugPrint('  Type: ${err.type}');
+    debugPrint('  Message: ${err.message}');
     if (err.response != null) {
-      print('  Response: ${err.response!.data}');
+      debugPrint('  Response: ${err.response!.data}');
     }
     super.onError(err, handler);
   }
@@ -44,42 +45,42 @@ void main() async {
   dio.interceptors.add(LoggingInterceptor());
 
   try {
-    print('═══════════════════════════════════════════');
-    print('🔐 اختبار تسجيل الدخول');
-    print('═══════════════════════════════════════════');
+    debugPrint('═══════════════════════════════════════════');
+    debugPrint('🔐 اختبار تسجيل الدخول');
+    debugPrint('═══════════════════════════════════════════');
 
     final formData = FormData.fromMap({
       'phone': '201068287678+',
       'password': 'password123', // غير هذا ببيانات حقيقية
     });
 
-    print('\n📤 إرسال الطلب:');
-    print('URL: https://mca.sa.com/api/post_login');
-    print('البيانات:');
-    print('  - phone: 201068287678+');
-    print('  - password: ****');
+    debugPrint('\n📤 إرسال الطلب:');
+    debugPrint('URL: https://mca.sa.com/api/post_login');
+    debugPrint('البيانات:');
+    debugPrint('  - phone: 201068287678+');
+    debugPrint('  - password: ****');
 
     final response = await dio.post(
       '/post_login',
       data: formData,
     );
 
-    print('\n✅ استجابة ناجحة!');
-    print('الحالة: ${response.statusCode}');
-    print('\n📥 البيانات المستقبلة:');
-    print(response.data);
+    debugPrint('\n✅ استجابة ناجحة!');
+    debugPrint('الحالة: ${response.statusCode}');
+    debugPrint('\n📥 البيانات المستقبلة:');
+    debugPrint('${response.data}');
 
   } on DioException catch (e) {
-    print('\n❌ خطأ في الاتصال!');
-    print('النوع: ${e.type}');
-    print('الرسالة: ${e.message}');
+    debugPrint('\n❌ خطأ في الاتصال!');
+    debugPrint('النوع: ${e.type}');
+    debugPrint('الرسالة: ${e.message}');
     
     if (e.response != null) {
-      print('\nالحالة: ${e.response!.statusCode}');
-      print('البيانات:');
-      print(e.response!.data);
+      debugPrint('\nالحالة: ${e.response!.statusCode}');
+      debugPrint('البيانات:');
+      debugPrint('${e.response!.data}');
     }
   } catch (e) {
-    print('\n❌ خطأ غير متوقع: $e');
+    debugPrint('\n❌ خطأ غير متوقع: $e');
   }
 }

@@ -39,6 +39,11 @@ jobs:
           cd ios
           pod repo update
       
+      - name: Install iOS dependencies
+        run: |
+          cd ios
+          pod install
+
       - name: Build iOS Release
         run: flutter build ios --release --no-codesign
       
