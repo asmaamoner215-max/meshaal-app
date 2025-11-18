@@ -45,19 +45,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   message: state.loginDataModel?.message ?? "تسجيل دخول ناجح",
                 );
                 // Navigate after a short delay
-                Future.delayed(const Duration(milliseconds: 500), () {
+                Future.delayed(const Duration(milliseconds: 500), () async {
                   if (!mounted) return;
                   final userType = state.loginDataModel?.data?.type;
                   if (userType != null) {
-                    if (!mounted) return;
                     final routeName = userType == UserTypeEnum.client.name
                         ? ScreenName.userMainLayoutScreen
                         : ScreenName.vendorMainLayoutScreen;
-                    if (!mounted) return;
-                    Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        routeName,
-                        (route) => false);
+                    if (mounted) {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          routeName,
+                          (route) => false);
+                    }
                   }
                 });
               } else {
