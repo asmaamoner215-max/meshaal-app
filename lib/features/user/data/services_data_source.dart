@@ -20,9 +20,8 @@ class ServicesDataSource {
       final response = await dioHelper.getData(
         url: EndPoints.getServices,
       );
-      print('Services Response: ${response.data}');
       if (response.data == null) {
-        return Left(
+        return const Left(
           ErrorException(
             baseErrorModel: BaseErrorModel(
               message: 'No data received from server',
@@ -33,9 +32,7 @@ class ServicesDataSource {
       }
       return Right(GetServicesModel.fromJson(response.data));
     } catch (e) {
-      print('Services Error: $e');
       if (e is DioException) {
-        print(e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel(

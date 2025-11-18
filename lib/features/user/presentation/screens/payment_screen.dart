@@ -85,16 +85,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Future<void> payPressed() async {
     UserRequestsCubit cubit = UserRequestsCubit.get(context);
     FlutterPaymentSdkBridge.startCardPayment(generateConfig(), (event) {
-      print("print(transactionDetails);");
-      print(event);
       setState(() {
         if (event["status"] == "success") {
           // Handle transaction details here.
           var transactionDetails = event["data"];
-          print(transactionDetails);
           if (transactionDetails["isSuccess"]) {
-            print(cubit.fromAddress);
-            print(cubit.toAddress);
             cubit.sendCarRequest(
               requestParameters: RequestAmpParameters(
                 formLat: cubit.userCurrentPosition?.latitude ?? 0,
@@ -127,12 +122,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 weight: cubit.patientWeightController.text,
               ),
             );
-            print("successful transaction");
             if (transactionDetails["isPending"]) {
-              print("transaction pending");
             }
           } else {
-            print("failed transaction");
             showToast(errorType: 1, message: "فشلت عملية الدفع");
           }
 
@@ -350,8 +342,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
               CustomElevatedButton(
                 text: "تأكيد الدفع",
                 onPressed: () {
-                  print(cubit.fromAddress);
-                  print(cubit.toAddress);
                   if (paymentMethodType == 0) {
                     payPressed();
                   } else {

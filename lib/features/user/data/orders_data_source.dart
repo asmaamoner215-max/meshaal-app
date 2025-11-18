@@ -25,7 +25,6 @@ class UserOrdersDataSource {
       return Right(GetMyInvoicesModel.fromJson(response.data));
     } catch (e) {
       if (e is DioException) {
-        print(e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
@@ -45,7 +44,6 @@ class UserOrdersDataSource {
       return Right(GetMyTravelsModel.fromJson(response.data));
     } catch (e) {
       if (e is DioException) {
-        print(e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
@@ -67,7 +65,6 @@ class UserOrdersDataSource {
       return Right(OrderModel.fromJson(response.data["data"]));
     } catch (e) {
       if (e is DioException) {
-        print(e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
@@ -90,7 +87,6 @@ class UserOrdersDataSource {
       return Right(BaseResponseModel.fromJson(response.data["data"]));
     } catch (e) {
       if (e is DioException) {
-        print(e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),

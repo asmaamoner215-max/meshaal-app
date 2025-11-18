@@ -163,8 +163,6 @@ class _OtpScreenState extends State<OtpScreen> {
               CustomElevatedButton(
                 backgroundColor: AppColors.primaryColor,
                 onPressed: () {
-                  print( passwordController.text);
-                  print( widget.otpArguments.userId.toString());
                   if (!widget.otpArguments.isForgetPassword) {
                     showProgressIndicator(context);
                     Timer(const Duration(seconds: 2), () {

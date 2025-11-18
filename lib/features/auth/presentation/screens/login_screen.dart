@@ -139,8 +139,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomElevatedButton(
                     backgroundColor: AppColors.primaryColor,
                     onPressed: () {
-                      print(phoneController);
-                      print(passwordController);
                       if (formKey.currentState!.validate()) {
                         cubit.login(
                           loginParameters: LoginParameters(

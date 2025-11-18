@@ -45,7 +45,6 @@ class _TimeDialogState extends State<TimeDialog> {
       setState(() {
         duration = duration + const Duration(seconds: 60);
       });
-      print(duration);
     });
   }
 

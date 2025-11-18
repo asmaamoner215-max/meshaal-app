@@ -242,7 +242,6 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                         color: AppColors.primaryColor,
                       ),
                       onChanged: (value) {
-                        print(value);
                         _isSelected = value!;
                         if (!_isSelected) {
                           animationController.reverse();

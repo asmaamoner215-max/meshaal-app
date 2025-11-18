@@ -38,7 +38,6 @@ class UserOrdersCubit extends Cubit<UserOrdersState> {
         emit(GetMyInvoicesErrorState(error: l.baseErrorModel.message));
       },
       (r) async {
-        print(r);
         getMyInvoicesModel = r;
         getMyInvoicesLoading = false;
         emit(GetMyInvoicesSuccessState(getMyInvoicesModel: r));
@@ -61,7 +60,6 @@ class UserOrdersCubit extends Cubit<UserOrdersState> {
         emit(GetMyTravelsErrorState(error: l.baseErrorModel.message));
       },
       (r) async {
-        print(r);
         getMyTravelsModel = r;
         getMyTravelsLoading = false;
         emit(GetMyTravelsSuccessState(getMyTravelsModel: r));
@@ -77,7 +75,6 @@ class UserOrdersCubit extends Cubit<UserOrdersState> {
     final response = await _userOrdersDataSource.cancelOrder(
       orderId: orderId,
     );
-    print(response);
     response.fold(
       (l) {
         baseErrorModel = l.baseErrorModel;

@@ -328,7 +328,6 @@ class _CompleteRequestAmbulanceFormScreenState extends State<CompleteRequestAmbu
                       color: AppColors.primaryColor,
                     ),
                     onChanged: (value) {
-                      print(value);
                       isSelected = value!;
 
                       setState(() {});

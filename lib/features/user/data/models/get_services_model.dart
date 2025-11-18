@@ -73,7 +73,6 @@ class ServiceDataModel extends Equatable {
             .toList(),
       );
     } catch (e) {
-      print('Error parsing ServiceDataModel: $e, json: $json');
       rethrow;
     }
   }

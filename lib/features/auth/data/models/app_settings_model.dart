@@ -5,7 +5,6 @@ class GetAppSettingModel extends BaseResponseModel<AppSettings>{
   const GetAppSettingModel({required super.status, required super.message,super.data,});
 
   factory GetAppSettingModel.fromJson(Map<String, dynamic> json) {
-    print(json["data"]);
     return GetAppSettingModel(
       status: json["status"],
       message: json["msg"],

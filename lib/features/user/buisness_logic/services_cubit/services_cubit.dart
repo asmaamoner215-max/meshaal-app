@@ -27,7 +27,6 @@ class ServicesCubit extends Cubit<ServicesState> {
           (l) {
         baseErrorModel = l.baseErrorModel;
         getServicesLoading = false;
-        print('Services Error: ${l.baseErrorModel.message}');
         emit(
           GetServicesErrorState(error: l.baseErrorModel.message),
         );
@@ -35,8 +34,6 @@ class ServicesCubit extends Cubit<ServicesState> {
           (r) async {
         getServicesModel = r;
         getServicesLoading = false;
-        print('Services Success: ${getServicesModel?.data?.length} services loaded');
-        print(getServicesModel?.data?[0].subs);
         emit(
           GetServicesSuccessState(getServicesModel: r),
         );

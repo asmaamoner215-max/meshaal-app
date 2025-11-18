@@ -57,7 +57,6 @@ class RequestsDataSource {
       return Right(BaseResponseModel.fromJson(response.data));
     } catch (e) {
       if (e is DioException) {
-        print(e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
@@ -169,7 +168,6 @@ class RequestsDataSource {
       return Right(PromoModel.fromJson(response.data));
     } catch (e) {
       if (e is DioException) {
-        print(e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
@@ -220,11 +218,9 @@ class RequestsDataSource {
       final response = await dioHelper.getData(
         url: EndPoints.getNationality,
       );
-      print(response);
       return Right(GetNationalityModel.fromJson(response.data));
     } catch (e) {
       if (e is DioException) {
-        print(e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
