@@ -34,7 +34,6 @@ class _ResetScreenState extends State<ResetScreen> {
       ),
       body: BlocConsumer<UserOrdersCubit, UserOrdersState>(
         listener: (context, state) {
-          // TODO: implement listener
         },
         builder: (context, state) {
           UserOrdersCubit cubit = UserOrdersCubit.get(context);
