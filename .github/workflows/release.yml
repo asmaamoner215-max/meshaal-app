@@ -35,7 +35,7 @@ jobs:
       - name: Reset CocoaPods state
         run: |
           cd ios
-          rm -rf Pods
+          rm -rf Pods Podfile.lock
 
       - name: Update CocoaPods Specs
         run: |
