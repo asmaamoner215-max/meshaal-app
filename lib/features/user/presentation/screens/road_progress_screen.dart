@@ -131,7 +131,6 @@ class _RoadProgressScreenState extends State<RoadProgressScreen> {
   }
 
   void getPolyLinePoints(LatLng? destinationPosition) async {
-    print("entered get poly");
     PolylinePoints polylinePoints = PolylinePoints();
     polyLineCoordinates.clear();
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
@@ -392,7 +391,6 @@ class _StartTimerWidgetState extends State<StartTimerWidget> {
       setState(() {
         duration = duration + const Duration(seconds: 60);
       });
-      print(duration);
     });
   }
 
