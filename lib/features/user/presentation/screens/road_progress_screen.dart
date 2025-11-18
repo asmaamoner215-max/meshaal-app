@@ -91,8 +91,6 @@ class _RoadProgressScreenState extends State<RoadProgressScreen> {
   LatLng? currentLocation;
 
   void getCurrentLocation({LatLng? destinationPosition}) {
-    print("dest");
-    print(destinationPosition);
     googleMapsServices.getGeoLocationPosition().then((value) {
       currentLocation = LatLng(value.latitude, value.longitude);
       setMarkers(id: "dest", latLng: destinationPosition!);
