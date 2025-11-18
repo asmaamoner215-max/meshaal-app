@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,7 +40,10 @@ class VendorOrdersCubit extends Cubit<VendorOrdersState> {
         emit(GetMyTravelsErrorState(error: l.baseErrorModel.message));
       },
       (r) async {
-        print(r);
+        developer.log(
+          r.toString(),
+          name: 'VendorOrdersCubit.providerOrders',
+        );
         getMyTravelsModel = r;
         getMyTravelsLoading = false;
         emit(GetMyTravelsSuccessState(getMyTravelsModel: r));
@@ -62,7 +67,10 @@ class VendorOrdersCubit extends Cubit<VendorOrdersState> {
         emit(GetSingleOrderErrorState(error: l.baseErrorModel.message));
       },
       (r) async {
-        print(r);
+        developer.log(
+          r.toString(),
+          name: 'VendorOrdersCubit.getOrderData',
+        );
         orderModel = r;
         getOrderModelLoading = false;
         emit(GetSingleOrderSuccessState());
@@ -83,7 +91,10 @@ class VendorOrdersCubit extends Cubit<VendorOrdersState> {
         emit(WaitMinutesErrorState(error: l.baseErrorModel.message));
       },
       (r) async {
-        print(r);
+        developer.log(
+          r.toString(),
+          name: 'VendorOrdersCubit.waitMinutes',
+        );
         waitMinutesLoading = false;
         emit(WaitMinutesSuccessState());
       },
@@ -106,7 +117,10 @@ class VendorOrdersCubit extends Cubit<VendorOrdersState> {
         emit(ChangeOrderStatusErrorState(error: l.baseErrorModel.message));
       },
       (r) async {
-        print(r);
+        developer.log(
+          r.toString(),
+          name: 'VendorOrdersCubit.changeStatus',
+        );
         emit(ChangeOrderStatusSuccessState());
       },
     );
@@ -129,7 +143,10 @@ class VendorOrdersCubit extends Cubit<VendorOrdersState> {
         emit(RateUserErrorState(error: l.baseErrorModel.message));
       },
       (r) async {
-        print(r);
+        developer.log(
+          r.toString(),
+          name: 'VendorOrdersCubit.rateUser',
+        );
         emit(RateUserSuccessState());
       },
     );
