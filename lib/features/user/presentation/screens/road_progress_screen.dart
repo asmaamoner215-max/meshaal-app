@@ -108,9 +108,6 @@ class _RoadProgressScreenState extends State<RoadProgressScreen> {
   LatLng? carPosition;
 
   void trackCarPosition() async {
-    print("order id");
-    print(widget.orderModel!.id!.toString());
-
     FirebaseFirestore.instance
         .collection('locations')
         .doc(widget.orderModel!.id!.toString())
