@@ -47,13 +47,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 // Navigate after a short delay
                 Future.delayed(const Duration(milliseconds: 500), () {
                   if (!mounted) return;
-                  if (state.loginDataModel?.data?.type != null) {
+                  final userType = state.loginDataModel?.data?.type;
+                  if (userType != null) {
+                    if (!mounted) return;
+                    final routeName = userType == UserTypeEnum.client.name
+                        ? ScreenName.userMainLayoutScreen
+                        : ScreenName.vendorMainLayoutScreen;
                     if (!mounted) return;
                     Navigator.pushNamedAndRemoveUntil(
                         context,
-                        state.loginDataModel!.data!.type == UserTypeEnum.client.name
-                            ? ScreenName.userMainLayoutScreen
-                            : ScreenName.vendorMainLayoutScreen,
+                        routeName,
                         (route) => false);
                   }
                 });
