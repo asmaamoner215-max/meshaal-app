@@ -35,11 +35,9 @@ void showProgressIndicator(BuildContext context) {
   );
   showDialog(
       context: context,
-      builder: (context) => WillPopScope(
+      builder: (context) => PopScope(
+            canPop: true,
             child: alertDialog,
-            onWillPop: () async {
-              return true;
-            },
           ),
       barrierDismissible: true);
 }

@@ -5,7 +5,9 @@ class AppColors {
   static MaterialColor createMaterialColor(Color color) {
     List strengths = <double>[.05];
     Map<int, Color> swatch = {};
-    final int r = color.red, g = color.green, b = color.blue;
+    final int r = (color.value >> 16) & 255;
+    final int g = (color.value >> 8) & 255;
+    final int b = color.value & 255;
 
     for (int i = 1; i < 10; i++) {
       strengths.add(0.1 * i);
@@ -33,5 +35,5 @@ class AppColors {
   static const whiteColor = Color(0xffFFFFFF);
   static const redColor = Color(0xffFF0000);
   static const reserveRedColor = Color(0xffFB4455);
-  static  Color shadowColor({double opacityValue = 0}) => const Color(0xff000000).withOpacity(opacityValue);
+  static  Color shadowColor({double opacityValue = 0}) => const Color(0xff000000).withValues(alpha: opacityValue);
 }

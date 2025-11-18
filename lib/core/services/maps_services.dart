@@ -37,14 +37,14 @@ class GoogleMapsServices {
           'Location permissions are permanently denied, we cannot request permissions.');
     }
     return await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.best,
+      locationSettings: const LocationSettings(accuracy: LocationAccuracy.best),
     );
   }
   Future<Position> getCurrentPosition() async {
     await _checkLocationServices();
     await _checkLocationPermissions();
     return await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
+      locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
     );
   }
 
