@@ -55,11 +55,12 @@ class ProfileScreen extends StatelessWidget {
           ProfileItemWidget(
             title: "تسجيل الخروج",
             assetPath: SvgPath.logout,
-            onPressed: () {
-              CacheHelper.clearAllData().then((value) {
+            onPressed: () async {
+              await CacheHelper.clearAllData();
+              if (context.mounted) {
                 Navigator.pushNamedAndRemoveUntil(
                     context, ScreenName.loginOrRegisterScreen, (route) => false);
-              });
+              }
             },
           )
         ],
