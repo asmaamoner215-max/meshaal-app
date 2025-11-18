@@ -30,7 +30,7 @@ class OtpArguments extends Equatable {
   });
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [
         phone,
         code,

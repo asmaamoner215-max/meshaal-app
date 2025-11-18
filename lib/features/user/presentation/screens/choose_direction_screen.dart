@@ -337,9 +337,9 @@ class _ChooseDirectionScreenState extends State<ChooseDirectionScreen> {
                           ),
                           Expanded(
                             child: SelectButtonWithTitle(
-                              isSelected: cubit.tripEnum == TripEnum.go_back,
+                              isSelected: cubit.tripEnum == TripEnum.goBack,
                               onPressed: () {
-                                cubit.tripEnum = TripEnum.go_back;
+                                cubit.tripEnum = TripEnum.goBack;
                                 setState(() {});
                               },
                               title: 'ذهاب و عودة',

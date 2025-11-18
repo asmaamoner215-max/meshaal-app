@@ -192,8 +192,8 @@ class _VendorOrderProgressScreenState extends State<VendorOrderProgressScreen> {
                 .getOrderData(orderId: VendorOrdersCubit.get(context).orderModel!.id.toString());
           }
           if (VendorOrdersCubit.get(context).orderModel?.status ==
-                  OrderStatusEnum.in_hospital.name &&
-              VendorOrdersCubit.get(context).orderModel?.trip == TripEnum.go_back.name &&
+                  OrderStatusEnum.inHospital.name &&
+              VendorOrdersCubit.get(context).orderModel?.trip == TripEnum.goBack.name &&
               VendorOrdersCubit.get(context).orderModel?.waitMinutes == null) {
             showDialog(
               context: context,
@@ -346,42 +346,42 @@ class _VendorOrderProgressScreenState extends State<VendorOrderProgressScreen> {
                           const CustomSizedBox(
                             height: 16,
                           ),
-                          if (cubit.orderModel!.trip == TripEnum.go_back.name)
+                          if (cubit.orderModel!.trip == TripEnum.goBack.name)
                             CustomElevatedButton(
                               text: cubit.orderModel?.status == OrderStatusEnum.accepted.name
                                   ? "بدآ الرحلة"
-                                  : cubit.orderModel?.status == OrderStatusEnum.on_way.name
+                                  : cubit.orderModel?.status == OrderStatusEnum.onWay.name
                                       ? "الوصول للوجهة الاولي"
-                                      : cubit.orderModel?.status == OrderStatusEnum.in_home_go.name
+                                      : cubit.orderModel?.status == OrderStatusEnum.inHomeGo.name
                                           ? "الوصول للوجهة الثانية"
                                           : cubit.orderModel?.status ==
-                                                  OrderStatusEnum.in_hospital.name
+                                                  OrderStatusEnum.inHospital.name
                                               ? "العودة من المستشفي"
                                               : cubit.orderModel?.status ==
-                                                      OrderStatusEnum.go_home.name
+                                                      OrderStatusEnum.goHome.name
                                                   ? "انهاء الرحلة"
                                                   : "تقييم العميل",
                               onPressed: () {
                                 cubit.orderModel?.status == OrderStatusEnum.accepted.name
                                     ? cubit.changeStatus(
                                         orderId: cubit.orderModel!.id.toString(),
-                                        status: OrderStatusEnum.on_way.name)
-                                    : cubit.orderModel?.status == OrderStatusEnum.on_way.name
+                                        status: OrderStatusEnum.onWay.name)
+                                    : cubit.orderModel?.status == OrderStatusEnum.onWay.name
                                         ? cubit.changeStatus(
                                             orderId: cubit.orderModel!.id.toString(),
-                                            status: OrderStatusEnum.in_home_go.name)
+                                            status: OrderStatusEnum.inHomeGo.name)
                                         : cubit.orderModel?.status ==
-                                                OrderStatusEnum.in_home_go.name
+                                                OrderStatusEnum.inHomeGo.name
                                             ? cubit.changeStatus(
                                                 orderId: cubit.orderModel!.id.toString(),
-                                                status: OrderStatusEnum.in_hospital.name)
+                                                status: OrderStatusEnum.inHospital.name)
                                             : cubit.orderModel?.status ==
-                                                    OrderStatusEnum.in_hospital.name
+                                                    OrderStatusEnum.inHospital.name
                                                 ? cubit.changeStatus(
                                                     orderId: cubit.orderModel!.id.toString(),
-                                                    status: OrderStatusEnum.go_home.name)
+                                                    status: OrderStatusEnum.goHome.name)
                                                 : cubit.orderModel?.status ==
-                                                        OrderStatusEnum.go_home.name
+                                                        OrderStatusEnum.goHome.name
                                                     ? cubit.changeStatus(
                                                         orderId: cubit.orderModel!.id.toString(),
                                                         status: OrderStatusEnum.fnish.name)
@@ -406,30 +406,30 @@ class _VendorOrderProgressScreenState extends State<VendorOrderProgressScreen> {
                             CustomElevatedButton(
                               text: cubit.orderModel?.status == OrderStatusEnum.accepted.name
                                   ? "بدآ الرحلة"
-                                  : cubit.orderModel?.status == OrderStatusEnum.on_way.name
+                                  : cubit.orderModel?.status == OrderStatusEnum.onWay.name
                                       ? "الوصول للوجهة الاولي"
-                                      : cubit.orderModel?.status == OrderStatusEnum.in_home_go.name
+                                      : cubit.orderModel?.status == OrderStatusEnum.inHomeGo.name
                                           ? "الوصول للوجهة الثانية"
                                           : cubit.orderModel?.status ==
-                                                  OrderStatusEnum.in_hospital.name
+                                                  OrderStatusEnum.inHospital.name
                                               ? "انهاء الرحلة"
                                               : "تقييم العميل",
                               onPressed: () {
                                 cubit.orderModel?.status == OrderStatusEnum.accepted.name
                                     ? cubit.changeStatus(
                                         orderId: cubit.orderModel!.id.toString(),
-                                        status: OrderStatusEnum.on_way.name)
-                                    : cubit.orderModel?.status == OrderStatusEnum.on_way.name
+                                        status: OrderStatusEnum.onWay.name)
+                                    : cubit.orderModel?.status == OrderStatusEnum.onWay.name
                                         ? cubit.changeStatus(
                                             orderId: cubit.orderModel!.id.toString(),
-                                            status: OrderStatusEnum.in_home_go.name)
+                                            status: OrderStatusEnum.inHomeGo.name)
                                         : cubit.orderModel?.status ==
-                                                OrderStatusEnum.in_home_go.name
+                                                OrderStatusEnum.inHomeGo.name
                                             ? cubit.changeStatus(
                                                 orderId: cubit.orderModel!.id.toString(),
-                                                status: OrderStatusEnum.in_hospital.name)
+                                                status: OrderStatusEnum.inHospital.name)
                                             : cubit.orderModel?.status ==
-                                                    OrderStatusEnum.in_hospital.name
+                                                    OrderStatusEnum.inHospital.name
                                                 ? cubit.changeStatus(
                                                     orderId: cubit.orderModel!.id.toString(),
                                                     status: OrderStatusEnum.fnish.name)

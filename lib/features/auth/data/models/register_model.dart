@@ -16,6 +16,6 @@ class RegisterModel extends BaseResponseModel{
   }
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [super.props,code,phone,];
 }

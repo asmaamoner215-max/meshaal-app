@@ -167,7 +167,7 @@ class PlaceResult extends Equatable {
   }
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [
     id,
     name,
@@ -188,7 +188,7 @@ class Geometry extends Equatable {
   }
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [
     location
   ];
@@ -208,7 +208,7 @@ class Location extends Equatable {
   }
 
   @override
-  // TODO: implement props
+
   List<Object?> get props => [
     lat,  lng
   ];

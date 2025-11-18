@@ -10,7 +10,6 @@ abstract class  BaseUseCase<T,Parameters>{
 class NoParameters extends Equatable{
   const NoParameters();
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 
 }

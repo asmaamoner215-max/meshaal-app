@@ -46,8 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 );
                 // Navigate after a short delay
                 Future.delayed(const Duration(milliseconds: 500), () {
-                  if (mounted && state.loginDataModel?.data?.type != null) {
-                    if (!mounted) return;
+                  if (!mounted) return;
+                  if (state.loginDataModel?.data?.type != null) {
                     Navigator.pushNamedAndRemoveUntil(
                         context,
                         state.loginDataModel!.data!.type == UserTypeEnum.client.name

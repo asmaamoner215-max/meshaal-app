@@ -280,7 +280,7 @@ class _RoadProgressScreenState extends State<RoadProgressScreen> {
                 const CustomSizedBox(
                   height: 16,
                 ),
-                if(widget.orderModel?.status==OrderStatusEnum.in_hospital.name&&widget.orderModel?.changeKm!="0")
+                if(widget.orderModel?.status==OrderStatusEnum.inHospital.name&&widget.orderModel?.changeKm!="0")
                 CustomElevatedButton(
                   text: "نغيير الاتجاه",
                   onPressed: () {
@@ -300,7 +300,7 @@ class _RoadProgressScreenState extends State<RoadProgressScreen> {
                   height: 16,
                 ),
                 if (widget.orderModel?.status ==
-                    OrderStatusEnum.in_hospital.name)
+                    OrderStatusEnum.inHospital.name)
                   StartTimerWidget(orderModel: widget.orderModel,),
                 // BlocConsumer<UserOrdersCubit, UserOrdersState>(
                 //   listener: (context, state) {

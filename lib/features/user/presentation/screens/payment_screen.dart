@@ -230,7 +230,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 height: 16,
               ),
               PaymentSummaryWidget(
-                title: cubit.tripEnum == TripEnum.go_back ? "توصيل ذهاب و عودة" : "توصيل ذهاب فقط",
+                title: cubit.tripEnum == TripEnum.goBack ? "توصيل ذهاب و عودة" : "توصيل ذهاب فقط",
                 price: cubit.priceModel?.price ?? "",
               ),
               const CustomSizedBox(

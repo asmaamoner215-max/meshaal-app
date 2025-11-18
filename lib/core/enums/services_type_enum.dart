@@ -1,5 +1,5 @@
 enum ServicesTypeEnum{
   veterinary,
-  livestock_transportation,
+  livestockTransportation,
   laborers,
 }

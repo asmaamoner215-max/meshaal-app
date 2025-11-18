@@ -39,7 +39,7 @@ class _VendorHomeScreenState extends State<VendorHomeScreen> {
       body: SafeArea(
         child: BlocConsumer<VendorOrdersCubit, VendorOrdersState>(
           listener: (context, state) {
-            // TODO: implement listener
+
           },
           builder: (context, state) {
             VendorOrdersCubit cubit = VendorOrdersCubit.get(context);
