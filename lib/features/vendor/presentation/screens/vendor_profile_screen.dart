@@ -39,11 +39,14 @@ class VendorProfileScreen extends StatelessWidget {
           ProfileItemWidget(
             title: "تسجيل الخروج",
             assetPath: SvgPath.logout,
-            onPressed: () {
-              CacheHelper.clearAllData().then((value) {
-                Navigator.pushNamedAndRemoveUntil(context,
-                    ScreenName.loginOrRegisterScreen, (route) => false);
-              });
+            onPressed: () async {
+              await CacheHelper.clearAllData();
+              if (!context.mounted) return;
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                ScreenName.loginOrRegisterScreen,
+                (route) => false,
+              );
             },
           )
         ],

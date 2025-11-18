@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:weam/core/models/base_response_model.dart';
@@ -25,7 +27,7 @@ class VendorOrdersDataSource {
       return Right(GetMyInvoicesModel.fromJson(response.data));
     } catch (e) {
       if (e is DioException) {
-        print(e);
+        developer.log('getMyInvoices error', error: e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
@@ -45,7 +47,7 @@ class VendorOrdersDataSource {
       return Right(GetMyTravelsModel.fromJson(response.data));
     } catch (e) {
       if (e is DioException) {
-        print(e);
+        developer.log('providerOrders error', error: e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
@@ -67,7 +69,7 @@ class VendorOrdersDataSource {
       return Right(OrderModel.fromJson(response.data["data"]));
     } catch (e) {
       if (e is DioException) {
-        print(e);
+        developer.log('getOrderData error', error: e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
@@ -91,7 +93,7 @@ class VendorOrdersDataSource {
       return Right(BaseResponseModel.fromJson(response.data["data"]));
     } catch (e) {
       if (e is DioException) {
-        print(e);
+        developer.log('waitMinutes error', error: e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
@@ -115,7 +117,7 @@ class VendorOrdersDataSource {
       return Right(OrderModel.fromJson(response.data["data"]));
     } catch (e) {
       if (e is DioException) {
-        print(e);
+        developer.log('changeStatus error', error: e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
@@ -143,7 +145,7 @@ class VendorOrdersDataSource {
       return Right(BaseResponseModel.fromJson(response.data));
     } catch (e) {
       if (e is DioException) {
-        print(e);
+        developer.log('rateUser error', error: e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
