@@ -46,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 );
                 // Store data before async gap
                 final userType = state.loginDataModel?.data?.type;
+                final navigator = Navigator.of(context);
                 // Navigate after a short delay
                 Future.delayed(const Duration(milliseconds: 500), () async {
                   if (!mounted) return;
@@ -53,12 +54,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     final routeName = userType == UserTypeEnum.client.name
                         ? ScreenName.userMainLayoutScreen
                         : ScreenName.vendorMainLayoutScreen;
-                    if (mounted) {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          routeName,
-                          (route) => false);
-                    }
+                    navigator.pushNamedAndRemoveUntil(
+                        routeName,
+                        (route) => false);
                   }
                 });
               } else {
