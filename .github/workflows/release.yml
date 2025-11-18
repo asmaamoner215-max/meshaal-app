@@ -37,6 +37,11 @@ jobs:
           cd ios
           rm -rf Pods Podfile.lock
 
+      - name: Install CocoaPods dependencies (pre-update)
+        run: |
+          cd ios
+          pod install
+
       - name: Update CocoaPods Specs
         run: |
           cd ios
