@@ -83,7 +83,6 @@ class UserOrdersDataSource {
           data: FormData.fromMap({
             "order_id": orderId,
           }));
-      print(response);
       return Right(BaseResponseModel.fromJson(response.data["data"]));
     } catch (e) {
       if (e is DioException) {

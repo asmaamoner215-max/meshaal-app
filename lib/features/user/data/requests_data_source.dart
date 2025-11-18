@@ -82,7 +82,6 @@ class RequestsDataSource {
       return Right(GetOrderModel.fromJson(response.data));
     } catch (e) {
       if (e is DioException) {
-        print(e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
@@ -107,7 +106,6 @@ class RequestsDataSource {
       return Right(RequestPriceModel.fromJson(response.data));
     } catch (e) {
       if (e is DioException) {
-        print(e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
@@ -138,7 +136,6 @@ class RequestsDataSource {
       return Right(RequestPriceModel.fromJson(response.data));
     } catch (e) {
       if (e is DioException) {
-        print(e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
@@ -200,7 +197,6 @@ class RequestsDataSource {
       return Right(RequestPriceModel.fromJson(response.data));
     } catch (e) {
       if (e is DioException) {
-        print(e);
         return Left(
           ErrorException(
             baseErrorModel: BaseErrorModel.fromJson(e.response!.data),
