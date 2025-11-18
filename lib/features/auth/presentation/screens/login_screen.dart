@@ -44,10 +44,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   errorType: 0,
                   message: state.loginDataModel?.message ?? "تسجيل دخول ناجح",
                 );
+                // Store data before async gap
+                final userType = state.loginDataModel?.data?.type;
                 // Navigate after a short delay
                 Future.delayed(const Duration(milliseconds: 500), () async {
                   if (!mounted) return;
-                  final userType = state.loginDataModel?.data?.type;
                   if (userType != null) {
                     final routeName = userType == UserTypeEnum.client.name
                         ? ScreenName.userMainLayoutScreen
