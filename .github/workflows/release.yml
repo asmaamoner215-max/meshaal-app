@@ -42,6 +42,11 @@ jobs:
           cd ios
           pod repo update
 
+      - name: Update ClickPay Pod
+        run: |
+          cd ios
+          pod update ClickPay
+
       - name: Update Firebase Firestore Pod
         run: |
           cd ios
