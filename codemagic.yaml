@@ -10,14 +10,17 @@ workflows:
         LC_ALL: en_US.UTF-8
         LANG: en_US.UTF-8
     scripts:
-      - name: Pre-build: Clear caches and install pods
+      - name: Pre-build: Clear all CocoaPods caches and install fresh pods
         script: |
           set -e
-          rm -rf ~/Library/Caches/CocoaPods/Search/Index.json
+          echo "Clearing CocoaPods caches..."
+          rm -rf ~/Library/Caches/CocoaPods
+          rm -rf ~/Library/Developer/Xcode/DerivedData
           rm -rf ios/Pods
           rm -f ios/Podfile.lock
+          echo "Installing pods with repo update..."
           cd ios
-          pod install
+          pod install --repo-update
           cd ..
       - name: Flutter build iOS (no codesign)
         script: |
