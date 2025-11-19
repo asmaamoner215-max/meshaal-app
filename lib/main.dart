@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'core/services/messaging_service.dart';
+// import 'core/services/messaging_service.dart';
 import 'bloc_observer.dart';
 import 'core/app_router/app_router.dart';
 import 'core/app_router/screens_name.dart';
@@ -29,8 +29,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Initialize Firebase Messaging (FCM)
-  await MessagingService().init();
+  // Firebase Messaging (FCM) disabled due to dependency resolution issues
+  // TODO: Re-enable after resolving firebase_messaging compatibility with cloud_firestore 6.1.0
+  // await MessagingService().init();
 
   Bloc.observer = MyBlocObserver();
 
