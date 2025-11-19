@@ -1,0 +1,4 @@
+enum UserTypeEnum{
+  client,
+  provider,
+}

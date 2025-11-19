@@ -1,0 +1,83 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Flutter ephemeral & generated configs
+flutter_export_environment.sh
+Generated.xcconfig
+
+# Platform ephemeral
+ios/Flutter/ephemeral/
+macos/Flutter/ephemeral/
+linux/Flutter/ephemeral/
+windows/Flutter/ephemeral/
+
+# Android Gradle caches
+android/.gradle/
+**/intermediates/
+
+# IDE settings (optional uncomment .vscode if you don't want to track)
+.vscode/
+
+# Secrets / Firebase configs (uncomment if you don't want to commit)
+**/google-services.json
+**/GoogleService-Info.plist
+
+# Keystore & credentials
+*.keystore
+*.jks
+android/app/key.properties
+android/local.properties
+
+# Coverage & logs
+coverage/
+*.log
+
+# Temporary files
+*.tmp
+
+# Node modules (if any web tooling added later)
+node_modules/
+
+# Generated translation code
+assets/translations/*.g.dart
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
