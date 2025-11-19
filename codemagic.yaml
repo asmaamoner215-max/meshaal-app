@@ -1,0 +1,31 @@
+workflows:
+  ios_release:
+    name: iOS Release (Pods repo-update)
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      vars:
+        LC_ALL: en_US.UTF-8
+        LANG: en_US.UTF-8
+    scripts:
+      - name: Pre-build: Update CocoaPods specs and install
+        script: |
+          set -e
+          cd ios
+          pod install --repo-update
+          cd ..
+      - name: Flutter build iOS (no codesign)
+        script: |
+          flutter clean
+          flutter pub get
+          flutter build ipa --release --no-codesign
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - build/**/xcarchive.zip
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+        - ios/Pods
+        - ~/Library/Caches/CocoaPods
