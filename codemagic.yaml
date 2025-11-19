@@ -25,6 +25,9 @@ workflows:
             find .symlinks/plugins -name "*.podspec" -print0 | xargs -0 sed -i '' "s/platform :ios, '12.0'/platform :ios, '15.0'/g"
             find .symlinks/plugins -name "*.podspec" -print0 | xargs -0 sed -i '' "s/platform :ios, '13.0'/platform :ios, '15.0'/g"
             find .symlinks/plugins -name "*.podspec" -print0 | xargs -0 sed -i '' "s/platform :ios, '14.0'/platform :ios, '15.0'/g"
+            # Also handle s.platform assignment style within podspecs
+            find .symlinks/plugins -name "*.podspec" -print0 | xargs -0 sed -i '' -E "s/(s\.platform = :ios, ')[0-9]+\.[0-9]+'/\115.0'/g"
+            find .symlinks/plugins -name "*.podspec" -print0 | xargs -0 sed -i '' -E "s/(spec\.platform = :ios, ')[0-9]+\.[0-9]+'/\115.0'/g"
           fi
           echo "[CI] Installing pods (repo update)"
           cd ios
