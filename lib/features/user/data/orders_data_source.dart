@@ -34,15 +34,15 @@ class UserOrdersDataSource {
         );
       }
 
-      final _t0 = DateTime.now();
+      final t0 = DateTime.now();
       final response = await dioHelper.postData(
         url: EndPoints.myInvoices,
       );
 
       // طباعة الاستجابة للتشخيص
       print('getMyInvoices response: ${response.data}');
-      final _elapsed = DateTime.now().difference(_t0).inMilliseconds;
-      print('getMyInvoices duration: ${_elapsed}ms');
+      final elapsed = DateTime.now().difference(t0).inMilliseconds;
+      print('getMyInvoices duration: ${elapsed}ms');
 
       return Right(GetMyInvoicesModel.fromJson(response.data));
     } catch (e) {

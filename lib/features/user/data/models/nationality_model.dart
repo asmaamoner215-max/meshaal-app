@@ -9,12 +9,9 @@ class GetNationalityModel extends BaseResponseModel<List<Nationality>?>{
     return GetNationalityModel(
       status: _boolFromJson(json["status"]),
       message: _stringFromJson(json["msg"] ?? json["message"]),
-      data: data != null
-          ? data
-              .whereType<Map>()
+      data: data?.whereType<Map>()
               .map((e) => Nationality.fromJson(Map<String, dynamic>.from(e)))
-              .toList()
-          : null,
+              .toList(),
     );
   }
 

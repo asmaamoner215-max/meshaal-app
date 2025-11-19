@@ -245,8 +245,8 @@ List<Map<String, dynamic>>? _listFromJson(dynamic value) {
   if (value == null) return null;
   if (value is List) {
     return value
-        .where((e) => e is Map)
-        .map((e) => Map<String, dynamic>.from(e as Map))
+        .whereType<Map>()
+        .map((e) => Map<String, dynamic>.from(e))
         .toList();
   }
   return null;

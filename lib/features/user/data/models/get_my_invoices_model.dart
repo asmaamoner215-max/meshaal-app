@@ -14,8 +14,8 @@ class GetMyInvoicesModel extends BaseResponseModel<List<OrderModel>> {
     List<OrderModel>? list;
     if (data is List) {
       list = data
-          .where((e) => e is Map)
-          .map((e) => OrderModel.fromJson(Map<String, dynamic>.from(e as Map)))
+          .whereType<Map>()
+          .map((e) => OrderModel.fromJson(Map<String, dynamic>.from(e)))
           .toList();
     } else {
       list = const [];

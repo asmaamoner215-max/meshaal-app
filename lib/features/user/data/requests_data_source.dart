@@ -217,12 +217,12 @@ class RequestsDataSource {
 
   Future<Either<ErrorException, GetNationalityModel>> getNationality() async {
     try {
-      final _t0 = DateTime.now();
+      final t0 = DateTime.now();
       final response = await dioHelper.getData(
         url: EndPoints.getNationality,
       );
-      final _elapsed = DateTime.now().difference(_t0).inMilliseconds;
-      print('getNationality duration: ${_elapsed}ms');
+      final elapsed = DateTime.now().difference(t0).inMilliseconds;
+      print('getNationality duration: ${elapsed}ms');
       return Right(GetNationalityModel.fromJson(response.data));
     } catch (e) {
       if (e is DioException) {
@@ -240,12 +240,12 @@ class RequestsDataSource {
 
   Future<Either<ErrorException, List<RelationModel>>> getRelationList() async {
     try {
-      final _t0 = DateTime.now();
+      final t0 = DateTime.now();
       final response = await dioHelper.getData(
         url: EndPoints.relationData,
       );
-      final _elapsed = DateTime.now().difference(_t0).inMilliseconds;
-      print('getRelationList duration: ${_elapsed}ms');
+      final elapsed = DateTime.now().difference(t0).inMilliseconds;
+      print('getRelationList duration: ${elapsed}ms');
       final data = response.data;
       List<RelationModel> list = List.from(data['data'].map((e) => RelationModel.fromJson(e)));
       return Right(list);

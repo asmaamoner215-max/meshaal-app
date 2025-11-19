@@ -25,13 +25,13 @@ class AuthRemoteDataSource {
     required LoginParameters parameters,
   }) async {
     try {
-      final _t0 = DateTime.now();
+      final t0 = DateTime.now();
       final response = await dioHelper.postData(
         url: EndPoints.login,
         data: FormData.fromMap(parameters.toJson()),
       );
-      final _elapsed = DateTime.now().difference(_t0).inMilliseconds;
-      print('login duration: ${_elapsed}ms');
+      final elapsed = DateTime.now().difference(t0).inMilliseconds;
+      print('login duration: ${elapsed}ms');
       print('login response: ${response.data}');
       return Right(LoginModel.fromJson(response.data));
     } catch (e) {
@@ -189,15 +189,15 @@ class AuthRemoteDataSource {
         );
       }
 
-      final _t0 = DateTime.now();
+      final t0 = DateTime.now();
       final response = await dioHelper.getData(
         url: EndPoints.getSettings,
       );
 
       // طباعة الاستجابة للتشخيص
       print('getAppSettings response: ${response.data}');
-      final _elapsed = DateTime.now().difference(_t0).inMilliseconds;
-      print('getAppSettings duration: ${_elapsed}ms');
+      final elapsed = DateTime.now().difference(t0).inMilliseconds;
+      print('getAppSettings duration: ${elapsed}ms');
 
       return Right(GetAppSettingModel.fromJson(response.data));
     } catch (e) {
@@ -235,12 +235,12 @@ class AuthRemoteDataSource {
 
   Future<Either<ErrorException, String>> getAcknowledge() async {
     try {
-      final _t0 = DateTime.now();
+      final t0 = DateTime.now();
       final response = await dioHelper.getData(
         url: EndPoints.acknowledgment,
       );
-      final _elapsed = DateTime.now().difference(_t0).inMilliseconds;
-      print('getAcknowledge duration: ${_elapsed}ms');
+      final elapsed = DateTime.now().difference(t0).inMilliseconds;
+      print('getAcknowledge duration: ${elapsed}ms');
       final ack = response.data['data']['acknowledgment'] as String;
       return Right(ack);
     } catch (e) {
@@ -271,15 +271,15 @@ class AuthRemoteDataSource {
         );
       }
 
-      final _t0 = DateTime.now();
+      final t0 = DateTime.now();
       final response = await dioHelper.postData(
         url: EndPoints.userData,
       );
 
       // طباعة الاستجابة للتشخيص
       print('getUserData response: ${response.data}');
-      final _elapsed = DateTime.now().difference(_t0).inMilliseconds;
-      print('getUserData duration: ${_elapsed}ms');
+      final elapsed = DateTime.now().difference(t0).inMilliseconds;
+      print('getUserData duration: ${elapsed}ms');
 
       return Right(GetUserDatModel.fromJson(response.data));
     } catch (e) {
