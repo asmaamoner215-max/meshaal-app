@@ -10,17 +10,15 @@ workflows:
         LC_ALL: en_US.UTF-8
         LANG: en_US.UTF-8
     scripts:
-      - name: Pre-build: Aggressive cache clear and pod repo rebuild
+      - name: Pre-build: Clear caches and install pods
         script: |
           set -e
-          echo "Removing all CocoaPods repos and caches..."
-          rm -rf ~/.cocoapods/repos
+          echo "Clearing caches..."
           rm -rf ~/Library/Caches/CocoaPods
           rm -rf ~/Library/Developer/Xcode/DerivedData
           rm -rf ios/Pods
           rm -f ios/Podfile.lock
-          echo "Setting up fresh pod repos and installing..."
-          pod setup --silent
+          echo "Installing pods with repo update..."
           cd ios
           pod install --repo-update
           cd ..

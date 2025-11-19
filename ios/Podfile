@@ -3,7 +3,8 @@
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 platform :ios, '15.0'
-# Use only CDN source to avoid duplicate spec conflicts
+# Firebase pod specs (official) + CDN for others
+source 'https://github.com/firebase/firebase-ios-sdk-frameworks.git'
 source 'https://cdn.cocoapods.org/'
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
