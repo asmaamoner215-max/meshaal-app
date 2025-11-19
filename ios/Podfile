@@ -3,7 +3,8 @@
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 platform :ios, '15.0'
-source 'https://github.com/CocoaPods/Specs.git'
+# Use the CDN specs repo to avoid local repo updates on CI
+source 'https://cdn.cocoapods.org/'
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 project 'Runner', {
