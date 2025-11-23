@@ -46,3 +46,41 @@ workflows:
         - ~/.pub-cache
         - ios/Pods
         - ~/Library/Caches/CocoaPods
+  ios_appstore_signed:
+    name: iOS App Store Signed
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      vars:
+        LC_ALL: en_US.UTF-8
+        LANG: en_US.UTF-8
+      groups:
+        - app_store_connect
+        - signing
+    scripts:
+      - name: Pre-build: Prepare & install pods (signed)
+        script: |
+          set -e
+          flutter pub get
+          cd ios
+          rm -f Podfile.lock
+          pod install --repo-update
+          cd ..
+      - name: Set build number from pubspec
+        script: |
+          BUILD_NUMBER=$(grep '^version:' pubspec.yaml | cut -d'+' -f2)
+          echo "Detected build number: $BUILD_NUMBER"
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" ios/Runner/Info.plist
+      - name: Build signed IPA
+        script: |
+          flutter build ipa --release --export-options-plist=exportOptions.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - build/ios/archive/*.xcarchive
+    publishing:
+      app_store_connect:
+        ipa_path: build/ios/ipa/*.ipa
+        submit_to_testflight: true
+        submit_to_review: false
