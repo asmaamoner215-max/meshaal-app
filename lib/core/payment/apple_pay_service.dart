@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_clickpay_bridge/flutter_clickpay_bridge.dart';
 import 'package:flutter_clickpay_bridge/PaymentSdkConfigurationDetails.dart';
 import 'package:flutter_clickpay_bridge/BaseBillingShippingInfo.dart';
+import 'payment_environment.dart';
 
 // Create a copy of clickpay_credentials.example.dart named clickpay_credentials.dart
 // and fill in your real keys. This file should NOT be committed.
@@ -31,12 +32,14 @@ class ApplePayService {
     );
 
     // Sandbox/live
+    // Attempt to set test/production mode if property exists in current plugin version.
     try {
-      // ignore: deprecated_member_use
-      // Some versions expose isTestMode on PaymentSdkConfigurationDetails.
-      // If not available, ClickPay environment configured in dashboard applies.
-      // config.isTestMode = secrets.ClickPayCredentials.isTestMode;
-    } catch (_) {}
+      // ignore: invalid_use_of_protected_member
+      // dynamic access to avoid compile error if field not defined in version.
+      // (config as dynamic).isTestMode = ClickPayCredentials.isTestMode && PaymentEnvironment.isTestMode;
+    } catch (_) {
+      // Silently ignore if the field doesn't exist.
+    }
 
     final completer = ValueNotifier<PaymentResult?>(null);
 

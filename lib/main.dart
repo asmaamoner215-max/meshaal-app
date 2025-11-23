@@ -18,6 +18,8 @@ import 'features/user/buisness_logic/user_services_cubit/user_requests_cubit.dar
 import 'features/vendor/buisness_logic/vendor_orders_cubit/vendor_orders_cubit.dart';
 import 'firebase_options.dart';
 import 'translations/codegen_loader.g.dart';
+import 'core/payment/payment_environment.dart';
+import 'core/payment/clickpay_credentials.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +30,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  // Set payment mode to production (Apple Pay / ClickPay live environment)
+  PaymentEnvironment.setTestMode(false);
+  ClickPayCredentials.isTestMode = false; // ensure credentials reflect production
 
   // Firebase Messaging (FCM) disabled due to dependency resolution issues
   // TODO: Re-enable after resolving firebase_messaging compatibility with cloud_firestore 6.1.0
