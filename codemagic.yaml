@@ -75,7 +75,20 @@ workflows:
           /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" ios/Runner/Info.plist
       - name: Build signed IPA
         script: |
-          flutter build ipa --release --export-options-plist=exportOptions.plist
+          set -e
+          if [ ! -f ios/exportOptions.plist ]; then
+            echo "[CI][ERROR] Missing ios/exportOptions.plist" >&2
+            ls -R ios | head -n 50 || true
+            exit 1
+          fi
+          flutter build ipa --release --export-options-plist=ios/exportOptions.plist
+      - name: Show archive logs if fail (helper)
+        script: |
+          set +e
+          if [ ! -d build/ios/archive ]; then
+            echo "[CI] Archive folder missing; listing build logs for diagnostics." || true
+            find build -name '*.log' -maxdepth 4 -print -exec tail -n 40 {} \; || true
+          fi
     artifacts:
       - build/ios/ipa/*.ipa
       - build/ios/archive/*.xcarchive

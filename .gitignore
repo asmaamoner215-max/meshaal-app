@@ -51,9 +51,10 @@ android/.gradle/
 # IDE settings (optional uncomment .vscode if you don't want to track)
 .vscode/
 
-# Secrets / Firebase configs (uncomment if you don't want to commit)
+# Secrets / Firebase configs (committed for build, ensure project is private)
 **/google-services.json
-**/GoogleService-Info.plist
+# Uncomment next line if you want to keep GoogleService-Info.plist out of repo:
+# **/GoogleService-Info.plist
 
 # Keystore & credentials
 *.keystore
