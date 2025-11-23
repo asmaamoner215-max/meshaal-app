@@ -9,7 +9,31 @@ workflows:
       vars:
         LC_ALL: en_US.UTF-8
         LANG: en_US.UTF-8
+        CLICKPAY_PROFILE_ID: "45213"
+        CLICKPAY_SERVER_KEY: "SBJNLZMHZG-JJND2BM6JR-6H96BWMMBJ"
+        CLICKPAY_CLIENT_KEY: "CPKMD6-D67G66-QDM2NG-GPG7MH"
+        APPLE_MERCHANT_ID: "merchant.com.meshaal.meshaalcenter"
+        MERCHANT_DISPLAY_NAME: "Meshaal Center"
+        COUNTRY_CODE: "SA"
+        CURRENCY_CODE: "SAR"
     scripts:
+      - name: Generate clickpay_credentials.dart from env
+        script: |
+          set -e
+          cat > lib/core/payment/clickpay_credentials.dart <<EOF
+          // Auto-generated from CI environment variables
+          class ClickPayCredentials {
+            static const String profileId = "$CLICKPAY_PROFILE_ID";
+            static const String serverKey = "$CLICKPAY_SERVER_KEY";
+            static const String clientKey = "$CLICKPAY_CLIENT_KEY";
+            static const String appleMerchantId = "$APPLE_MERCHANT_ID";
+            static const String merchantDisplayName = "$MERCHANT_DISPLAY_NAME";
+            static const String countryCode = "$COUNTRY_CODE";
+            static const String currencyCode = "$CURRENCY_CODE";
+            static bool isTestMode = false;
+          }
+          EOF
+          echo "[CI] Generated clickpay_credentials.dart"
       - name: Pre-build: Prepare plugins and install pods
         script: |
           set -e
