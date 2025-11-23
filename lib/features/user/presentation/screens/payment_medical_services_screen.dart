@@ -11,6 +11,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiffy/jiffy.dart';
 
 import '../../../../core/app_router/screens_name.dart';
+import '../../../../core/payment/clickpay_credentials.dart';
+import 'package:weam/features/payments/apple_pay_button.dart';
+import 'dart:io' show Platform;
 import '../../../../core/assets_path/svg_path.dart';
 import '../../../../core/parameters/requests_parameters/car_request_parameter.dart';
 import '../../buisness_logic/user_services_cubit/user_requests_cubit.dart';
@@ -86,18 +89,18 @@ class _PaymentMedicalServicesScreenState extends State<PaymentMedicalServicesScr
     apms.add(PaymentSdkAPms.KNET_DEBIT);
     apms.add(PaymentSdkAPms.APPLE_PAY);
     var configuration = PaymentSdkConfigurationDetails(
-      profileId: "45213",
-      serverKey: "SBJNLZMHZG-JJND2BM6JR-6H96BWMMBJ",
-      clientKey: "CPKMD6-D67G66-QDM2NG-GPG7MH",
-      cartId: "12433",
-      cartDescription: "Flowers",
-      merchantName: "Flowers Store",
+      profileId: ClickPayCredentials.profileId,
+      serverKey: ClickPayCredentials.serverKey,
+      clientKey: ClickPayCredentials.clientKey,
+      cartId: DateTime.now().millisecondsSinceEpoch.toString(),
+      cartDescription: widget.paymentMedicalServicesArgs?.description ?? "Medical Service",
+      merchantName: ClickPayCredentials.merchantDisplayName,
       screentTitle: "Pay with Card",
       amount: double.parse(widget.paymentMedicalServicesArgs!.price.toString()),
       showBillingInfo: true,
       forceShippingInfo: false,
-      currencyCode: "SAR",
-      merchantCountryCode: "SA",
+      currencyCode: ClickPayCredentials.currencyCode,
+      merchantCountryCode: ClickPayCredentials.countryCode,
       billingDetails: billingDetails,
       shippingDetails: shippingDetails,
       alternativePaymentMethods: apms,
@@ -151,6 +154,30 @@ class _PaymentMedicalServicesScreenState extends State<PaymentMedicalServicesScr
     });
   }
 
+  void _handleApplePaySuccess(String? ref) {
+    final cubit = UserRequestsCubit.get(context);
+    cubit.sendVisitRequest(
+      requestParameters: RequestAmpParameters(
+        formLat: cubit.userCurrentPosition?.latitude ?? 0,
+        formLong: cubit.userCurrentPosition?.longitude ?? 0,
+        serviceId: widget.paymentMedicalServicesArgs!.servicesId,
+        subServiceId: widget.paymentMedicalServicesArgs!.subServicesId,
+        formAddress: cubit.fromAddress,
+        infectiousDiseases: cubit.infectiousDiseases.name,
+        natId: cubit.nationality?.id.toString() ?? '0',
+        orderDate: Jiffy.parse(cubit.orderDate!.toString()).format(pattern: 'yyyy/MM/dd'),
+        orderTime: cubit.orderTime?.format(context),
+        patientName: cubit.patientNameController.text,
+        payData: DateTime.now().timeZoneName,
+        payMethod: 'apple_pay',
+        relationId: cubit.selectedRelation?.id.toString(),
+        sex: cubit.sexEnum.name,
+        toAddressName: cubit.toAddress,
+        transactionId: ref ?? '',
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -188,6 +215,14 @@ class _PaymentMedicalServicesScreenState extends State<PaymentMedicalServicesScr
                   setState(() {});
                 },
               ),
+              const CustomSizedBox(height: 16),
+              if (Platform.isIOS)
+                ApplePayCheckoutButton(
+                  amount: double.parse(widget.paymentMedicalServicesArgs!.price.toString()),
+                  description: widget.paymentMedicalServicesArgs?.description ?? 'Medical Service',
+                  onSuccess: _handleApplePaySuccess,
+                  onError: (msg) => showToast(errorType: 1, message: msg ?? 'فشل دفع Apple Pay'),
+                ),
               // const CustomSizedBox(
               //   height: 16,
               // ),

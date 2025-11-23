@@ -31,6 +31,9 @@ migrate_working_dir/
 .pub/
 /build/
 
+# Local payment secrets (create from example, do not commit real keys)
+lib/core/payment/clickpay_credentials.dart
+
 # Flutter ephemeral & generated configs
 flutter_export_environment.sh
 Generated.xcconfig

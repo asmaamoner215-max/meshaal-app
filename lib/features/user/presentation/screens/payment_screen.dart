@@ -10,6 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiffy/jiffy.dart';
 
 import '../../../../core/app_router/screens_name.dart';
+import '../../../../core/payment/clickpay_credentials.dart';
+import 'package:weam/features/payments/apple_pay_button.dart';
+import 'dart:io' show Platform;
 import '../../../../core/assets_path/svg_path.dart';
 import '../../../../core/enums/trip_enum.dart';
 import '../../../../core/parameters/requests_parameters/car_request_parameter.dart';
@@ -58,18 +61,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
     apms.add(PaymentSdkAPms.KNET_DEBIT);
     apms.add(PaymentSdkAPms.APPLE_PAY);
     var configuration = PaymentSdkConfigurationDetails(
-      profileId: "45213",
-      serverKey: "SBJNLZMHZG-JJND2BM6JR-6H96BWMMBJ",
-      clientKey: "CPKMD6-D67G66-QDM2NG-GPG7MH",
-      cartId: "12433",
-      cartDescription: "Flowers",
-      merchantName: "Flowers Store",
+      profileId: ClickPayCredentials.profileId,
+      serverKey: ClickPayCredentials.serverKey,
+      clientKey: ClickPayCredentials.clientKey,
+      cartId: DateTime.now().millisecondsSinceEpoch.toString(),
+      cartDescription: "Ambulance Request",
+      merchantName: ClickPayCredentials.merchantDisplayName,
       screentTitle: "Pay with Card",
       amount: double.parse(UserRequestsCubit.get(context).priceModel!.total.toString()),
       showBillingInfo: true,
       forceShippingInfo: false,
-      currencyCode: "SAR",
-      merchantCountryCode: "SA",
+      currencyCode: ClickPayCredentials.currencyCode,
+      merchantCountryCode: ClickPayCredentials.countryCode,
       billingDetails: billingDetails,
       shippingDetails: shippingDetails,
       alternativePaymentMethods: apms,
@@ -146,6 +149,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
     });
   }
 
+  // Apple Pay logic handled via callbacks on ApplePayCheckoutButton
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -194,9 +199,53 @@ class _PaymentScreenState extends State<PaymentScreen> {
               //       setState(() {});
               //     },
               //     assetName: SvgPath.wallet),
-              const CustomSizedBox(
-                height: 16,
-              ),
+              const CustomSizedBox(height: 16),
+              if (Platform.isIOS)
+                Padding(
+                  padding: EdgeInsets.only(bottom: 12.h),
+                  child: ApplePayCheckoutButton(
+                    amount: double.parse(UserRequestsCubit.get(context).priceModel!.total.toString()),
+                    description: 'Ambulance Request',
+                    onSuccess: (ref) {
+                      final cubit = UserRequestsCubit.get(context);
+                      cubit.sendCarRequest(
+                        requestParameters: RequestAmpParameters(
+                          formLat: cubit.userCurrentPosition?.latitude ?? 0,
+                          formLong: cubit.userCurrentPosition?.longitude ?? 0,
+                          toLat: cubit.userDestinationPosition?.latitude ?? 0.0,
+                          toLong: cubit.userDestinationPosition?.longitude ?? 0.0,
+                          trip: cubit.tripEnum.name,
+                          makkah: cubit.mekkahEnum.name,
+                          couponId: cubit.promoModel?.promoId.toString(),
+                          sale: cubit.promoModel?.sale.toString(),
+                          saleTotal: cubit.promoModel?.total.toString(),
+                          doctor: cubit.needDoctorInsideAmb.name,
+                          bookingFlight: cubit.bookingFlight.name,
+                          bookingImage: cubit.bookingFile,
+                          formAddress: cubit.fromAddress,
+                          toAddress: cubit.toAddress,
+                          infectiousDiseases: cubit.infectiousDiseases.name,
+                          natId: cubit.nationality?.id.toString() ?? '0',
+                          needsOxygen: cubit.needOxygen.name,
+                          orderDate: Jiffy.parse(cubit.orderDate!.toString()).format(pattern: 'yyyy/MM/dd'),
+                          orderTime: cubit.orderTime?.format(context),
+                          patientName: cubit.patientNameController.text,
+                          payData: DateTime.now().timeZoneName,
+                          payMethod: 'apple_pay',
+                          relationId: cubit.selectedRelation?.id.toString(),
+                          sex: cubit.sexEnum.name,
+                          toAddressName: cubit.toAddress,
+                          transactionId: ref ?? '',
+                          urinaryCatheter: cubit.urinaryCatheter.name,
+                          weight: cubit.patientWeightController.text,
+                        ),
+                      );
+                    },
+                    onError: (msg) {
+                      showToast(errorType: 1, message: msg ?? 'فشل دفع Apple Pay');
+                    },
+                  ),
+                ),
               PaymentButton(
                 isSelected: paymentMethodType == 2,
                 title: "الدفع عند الوصول",
