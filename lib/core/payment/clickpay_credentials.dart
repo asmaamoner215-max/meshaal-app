@@ -10,7 +10,7 @@ class ClickPayCredentials {
   static const String clientKey = String.fromEnvironment('CLICKPAY_CLIENT_KEY', defaultValue: 'C9KM9N-J2P6BP-BJ9V6T-2H9TBK');
 
   // Apple Pay merchant
-  static const String appleMerchantId = String.fromEnvironment('APPLE_MERCHANT_ID', defaultValue: 'merchant.com.meshaal.meshaalcenter');
+  static const String appleMerchantId = String.fromEnvironment('APPLE_MERCHANT_ID', defaultValue: 'merchant.com.meshaal.meshaalCenter');
   static const String merchantDisplayName = String.fromEnvironment('MERCHANT_DISPLAY_NAME', defaultValue: 'Meshaal Center');
 
   // Region
