@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_clickpay_bridge/flutter_clickpay_bridge.dart';
 import 'package:flutter_clickpay_bridge/PaymentSdkConfigurationDetails.dart';
 import 'package:flutter_clickpay_bridge/BaseBillingShippingInfo.dart';
-import 'payment_environment.dart';
 
 // Create a copy of clickpay_credentials.example.dart named clickpay_credentials.dart
 // and fill in your real keys. This file should NOT be committed.
@@ -28,6 +27,7 @@ class ApplePayService {
       amount: amount,
       currencyCode: secrets.ClickPayCredentials.currencyCode,
       merchantCountryCode: secrets.ClickPayCredentials.countryCode,
+      merchantApplePayIndentifier: secrets.ClickPayCredentials.appleMerchantId,
       billingDetails: billing,
     );
 
