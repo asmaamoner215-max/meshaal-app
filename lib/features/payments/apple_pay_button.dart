@@ -63,6 +63,10 @@ class _ApplePayCheckoutButtonState extends State<ApplePayCheckoutButton> {
         const SnackBar(content: Text('تم الدفع بنجاح')),
       );
     } else {
+      // Print detailed error for debugging
+      print('Apple Pay Error: ${result.message}');
+      print('Apple Pay Raw Response: ${result.raw}');
+      
       widget.onError?.call(result.message);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(result.message ?? 'فشل الدفع')),
