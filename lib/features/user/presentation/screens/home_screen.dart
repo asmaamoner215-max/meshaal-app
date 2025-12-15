@@ -34,7 +34,7 @@ class UserHomeScreen extends StatelessWidget {
               height: 16,
             ),
             ServicesTypeContainer(
-              imagePath: ImagesPath.ambulance1,
+              imagePath: ImagesPath.ambulanceReal,
               title: 'طلب سيارة اسعاف',
               onTap: () {
                 UserRequestsCubit.get(context).handleSentParameters();
@@ -63,6 +63,9 @@ class UserHomeScreen extends StatelessWidget {
                   ScreenName.medicalServicesScreen,
                 );
               },
+            ),
+            const CustomSizedBox(
+              height: 16,
             ),
           ],
         ),

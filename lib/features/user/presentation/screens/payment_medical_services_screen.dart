@@ -101,6 +101,7 @@ class _PaymentMedicalServicesScreenState extends State<PaymentMedicalServicesScr
       forceShippingInfo: false,
       currencyCode: ClickPayCredentials.currencyCode,
       merchantCountryCode: ClickPayCredentials.countryCode,
+      merchantApplePayIndentifier: ClickPayCredentials.appleMerchantId,
       billingDetails: billingDetails,
       shippingDetails: shippingDetails,
       alternativePaymentMethods: apms,
@@ -235,21 +236,21 @@ class _PaymentMedicalServicesScreenState extends State<PaymentMedicalServicesScr
               //   },
               //   assetName: SvgPath.wallet,
               // ),
-              const CustomSizedBox(
-                height: 16,
-              ),
-              PaymentButton(
-                isSelected: paymentMethodType == 2,
-                title: "الدفع عند الوصول",
-                onPressed: () {
-                  paymentMethodType = 2;
-                  setState(() {});
-                },
-                assetName: SvgPath.arival,
-              ),
-              const CustomSizedBox(
-                height: 16,
-              ),
+              // const CustomSizedBox(
+              //   height: 16,
+              // ),
+              // PaymentButton(
+              //   isSelected: paymentMethodType == 2,
+              //   title: "الدفع عند الوصول",
+              //   onPressed: () {
+              //     paymentMethodType = 2;
+              //     setState(() {});
+              //   },
+              //   assetName: SvgPath.arival,
+              // ),
+              // const CustomSizedBox(
+              //   height: 16,
+              // ),
               // if (paymentMethodType == 0) const CardComponent(),
               // if (paymentMethodType == 1)
               //   const WalletComponent(

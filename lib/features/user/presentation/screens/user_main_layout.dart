@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weam/features/user/presentation/screens/profile_screen.dart';
+import 'package:weam/features/user/presentation/screens/user_orders/user_order_screen.dart';
 import 'package:weam/features/user/presentation/widgets/user_bottom_nav_bar_widget.dart';
 
 import 'home_screen.dart';
@@ -23,6 +24,7 @@ class _UserMainLayoutScreenState extends State<UserMainLayoutScreen> {
     super.initState();
     screens = [
       const UserHomeScreen(),
+      const UserOrdersScreen(),
       const ProfileScreen(),
     ];
   }

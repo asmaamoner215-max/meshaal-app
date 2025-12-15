@@ -54,12 +54,24 @@ class UserBottomNavBarWidget extends StatelessWidget {
             ),
           ),
           BottomNavigationBarItem(
+            label: "رحلاتي",
+            icon: SvgPicture.asset(
+              SvgPath.orders,
+              width: 24.w,
+              height: 24.h,
+              colorFilter: currentIndex == 1
+                  ? const ColorFilter.mode(
+                      AppColors.primaryColor, BlendMode.srcIn,)
+                  : null,
+            ),
+          ),
+          BottomNavigationBarItem(
             label: "حسابي",
             icon: SvgPicture.asset(
               SvgPath.userNav,
               width: 24.w,
               height: 24.h,
-              colorFilter: currentIndex == 1
+              colorFilter: currentIndex == 2
                   ? const ColorFilter.mode(
                       AppColors.primaryColor, BlendMode.srcIn,)
                   : null,

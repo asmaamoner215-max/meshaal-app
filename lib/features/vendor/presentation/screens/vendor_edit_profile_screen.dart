@@ -27,7 +27,8 @@ class VendorEditProfileScreen extends StatefulWidget {
   const VendorEditProfileScreen({super.key});
 
   @override
-  State<VendorEditProfileScreen> createState() => _VendorEditProfileScreenState();
+  State<VendorEditProfileScreen> createState() =>
+      _VendorEditProfileScreenState();
 }
 
 class _VendorEditProfileScreenState extends State<VendorEditProfileScreen> {
@@ -117,7 +118,8 @@ class _VendorEditProfileScreenState extends State<VendorEditProfileScreen> {
                               decoration: BoxDecoration(
                                 color: AppColors.whiteColor,
                                 shape: BoxShape.circle,
-                                border: Border.all(color: AppColors.greyColor49, width: 1.w),
+                                border: Border.all(
+                                    color: AppColors.greyColor49, width: 1.w),
                               ),
                               child: file == null
                                   ? CachedNetworkImageWidget(
@@ -145,11 +147,14 @@ class _VendorEditProfileScreenState extends State<VendorEditProfileScreen> {
                       height: 12,
                     ),
                     Text(
-                      "عبدالله ابراهيم",
+                      nameController.text.isNotEmpty
+                          ? nameController.text
+                          : "الاسم",
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: CustomThemes.greyColor49TextTheme(context).copyWith(
+                      style:
+                          CustomThemes.greyColor49TextTheme(context).copyWith(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w700,
                       ),
@@ -162,7 +167,8 @@ class _VendorEditProfileScreenState extends State<VendorEditProfileScreen> {
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: CustomThemes.greyColor49TextTheme(context).copyWith(
+                      style:
+                          CustomThemes.greyColor49TextTheme(context).copyWith(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w700,
                       ),
@@ -184,7 +190,8 @@ class _VendorEditProfileScreenState extends State<VendorEditProfileScreen> {
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: CustomThemes.greyColor49TextTheme(context).copyWith(
+                      style:
+                          CustomThemes.greyColor49TextTheme(context).copyWith(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w700,
                       ),
@@ -215,7 +222,8 @@ class _VendorEditProfileScreenState extends State<VendorEditProfileScreen> {
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: CustomThemes.greyColor49TextTheme(context).copyWith(
+                      style:
+                          CustomThemes.greyColor49TextTheme(context).copyWith(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w700,
                       ),
@@ -236,7 +244,9 @@ class _VendorEditProfileScreenState extends State<VendorEditProfileScreen> {
                             name: nameController.text,
                             phone: phoneController.text,
                             plateId: null,
-                            deviceToken: CacheHelper.getData(key: CacheKeys.fcmToken) as String?,
+                            deviceToken:
+                                CacheHelper.getData(key: CacheKeys.fcmToken)
+                                    as String?,
                             email: emailController.text,
                             password: null,
                             type: null,
@@ -250,7 +260,8 @@ class _VendorEditProfileScreenState extends State<VendorEditProfileScreen> {
                         vertical: 16.h,
                       ),
                       text: "حفظ",
-                      titleStyle: CustomThemes.whiteColorTextTheme(context).copyWith(
+                      titleStyle:
+                          CustomThemes.whiteColorTextTheme(context).copyWith(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w400,
                       ),
@@ -260,7 +271,9 @@ class _VendorEditProfileScreenState extends State<VendorEditProfileScreen> {
                     ),
                     CustomOutlinedButton(
                       onPressed: () {
-                        showDialog(context: context, builder: (_) => const DeleteAccountDialog());
+                        showDialog(
+                            context: context,
+                            builder: (_) => const DeleteAccountDialog());
                       },
                       backgroundColor: AppColors.whiteColor,
                       foregroundColor: AppColors.primaryColor,
@@ -269,7 +282,8 @@ class _VendorEditProfileScreenState extends State<VendorEditProfileScreen> {
                         vertical: 16.h,
                       ),
                       text: "حذف الحساب",
-                      style: CustomThemes.primaryColorTextTheme(context).copyWith(
+                      style:
+                          CustomThemes.primaryColorTextTheme(context).copyWith(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w400,
                       ),

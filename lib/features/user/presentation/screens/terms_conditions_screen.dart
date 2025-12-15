@@ -1,28 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weam/core/app_theme/custom_themes.dart';
 import 'package:weam/features/shared_widget/custom_sizedbox.dart';
-import 'package:weam/core/app_theme/app_colors.dart';
-import 'package:weam/features/shared_widget/custom_elevated_button.dart';
 
 import '../../../../core/constants/constants.dart';
-import '../../../auth/buisness_logic/auth_cubit/auth_cubit.dart';
 import '../../../shared_widget/custom_app_bar.dart';
 
-class TermsAndConditionsScreen extends StatefulWidget {
+class TermsAndConditionsScreen extends StatelessWidget {
   const TermsAndConditionsScreen({super.key});
-
-  @override
-  State<TermsAndConditionsScreen> createState() => _TermsAndConditionsScreenState();
-}
-
-class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
-  @override
-  void initState() {
-    super.initState();
-    AuthCubit.get(context).getAppSettings();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,95 +18,135 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
           title: "الشروط و الاحكام",
         ),
       ),
-      body: BlocConsumer<AuthCubit, AuthState>(
-          listener: (context, state) {
-            if (state is GetSettingsErrorState) {
-              showToast(errorType: 1, message: state.error);
-            }
-          },
-          builder: (context, state) {
-            AuthCubit cubit = AuthCubit.get(context);
-            // Loading
-            if (cubit.getAppSettingsLoading) {
-              return const Center(child: CircularProgressIndicator.adaptive());
-            }
+      body: ListView(
+        padding: EdgeInsets.symmetric(
+          horizontal: 16.w,
+          vertical: 32.h,
+        ),
+        children: [
+          Text(
+            "الشروط والأحكام لتطبيق مشعل للخدمات الطبية والإسعافية",
+            style: CustomThemes.primaryColorTextTheme(context).copyWith(
+              fontWeight: FontWeight.w700,
+              fontSize: 18.sp,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const CustomSizedBox(height: 16),
+          Text(
+            'يُرجى قراءة هذه الشروط بعناية قبل استخدام تطبيق مشعل للخدمات الطبية والإسعافية ("MISHAL BIN HLEIL ALFAHMI AMBULANCE TRANSPORT‏"). باستخدامك للتطبيق، فإنك توافق على الالتزام بهذه الشروط والأحكام.',
+            style: CustomThemes.greyColor49TextTheme(context).copyWith(
+              fontSize: 14.sp,
+              height: 1.6,
+            ),
+          ),
+          const CustomSizedBox(height: 24),
+          
+          _buildSection(
+            context,
+            'a) قبول الشروط',
+            'باستخدام التطبيق، فإنك تقر بأنك قرأت وفهمت ووافقت على الالتزام بالشروط والأحكام، وعلى سياسة الخصوصية الخاصة بنا.\n\nإذا كنت لا توافق على أي جزء من الشروط، يُرجى عدم استخدام التطبيق.',
+          ),
+          
+          _buildSection(
+            context,
+            'b) طبيعة الخدمات',
+            'يوفر التطبيق خدمات طبية وإسعافية تشمل:\n• طلب سيارة إسعاف\n• خدمات نقل إسعافي بين المدن\n• زيارة طبيب منزلي\n• خدمات التمريض المنزلي\n\nتُقدّم الخدمات من قبل كوادر طبية مختصة أو جهات إسعافية معتمدة.',
+          ),
+          
+          _buildSection(
+            context,
+            'c) التسجيل والحساب',
+            'لإنشاء حساب في التطبيق، يجب تقديم معلومات صحيحة وكاملة.\n\nأنت مسؤول عن الحفاظ على سرية بيانات تسجيل الدخول الخاصة بك.\n\nيحق لنا إيقاف أو إلغاء الحساب في حال استخدامه بشكل مخالف أو احتيالي.',
+          ),
+          
+          _buildSection(
+            context,
+            'd) استخدام التطبيق',
+            'أنت توافق على:\n• استخدام التطبيق للأغراض القانونية فقط.\n• عدم إساءة استخدام التطبيق أو محاولة اختراقه.\n• عدم حجز خدمات وهمية أو غير جادّة.\n\nيحتفظ التطبيق بحق رفض تقديم الخدمة لأي مستخدم يسيء الاستخدام.',
+          ),
+          
+          _buildSection(
+            context,
+            'e) الأسعار والدفع',
+            'قد تختلف أسعار الخدمات حسب نوع الخدمة والمسافة والموقع.\n\nالأسعار المعروضة في التطبيق تقريبية، وقد يتم تعديلها حسب التقييم النهائي للحالة.\n\nتتطلب الخدمات دفعًا مسبقًا أو تأكيدًا عبر التحويل البنكي.\n\nجميع المدفوعات غير قابلة للاسترداد بعد تنفيذ الخدمة.',
+          ),
+          
+          _buildSection(
+            context,
+            'f) إلغاء الخدمة',
+            'لا يحق للمستخدم إلغاء الطلب عند بدء تقديم الخدمة.\n\nلا يحق للمستخدم إلغاء الطلب بعد تحرك سيارة الإسعاف.\n\nلا يحق للمستخدم إلغاء الطلب بعد قبول الطلب.\n\nلا يحق للمستخدم إلغاء زيارة الطبيب أو الممرض بعد قبول الطلب وتحديد الموعد.',
+          ),
+          
+          _buildSection(
+            context,
+            'g) المسؤولية الطبية',
+            'تُقدم الخدمات من قبل فرق طبية مختصة، لكن التطبيق لا يتحمل مسؤولية أي أضرار طبية ناتجة عن التشخيص أو العلاج، حيث تتم المسؤولية على مقدم الخدمة مباشرة.\n\nالتطبيق يعمل كمنصة لطلب الخدمة فقط، ولا يضمن النتائج الطبية.',
+          ),
+          
+          _buildSection(
+            context,
+            'h) دقة المعلومات',
+            'يتحمل المستخدم مسؤولية تقديم معلومات صحيحة عن الحالة الصحية والموقع والاتصال.\n\nالتطبيق غير مسؤول عن:\n• التأخير الناتج عن معلومات خاطئة\n• عدم القدرة على الوصول للموقع بسبب خطأ في العنوان أو ضعف الشبكة',
+          ),
+          
+          _buildSection(
+            context,
+            'i) الخصوصية وحماية البيانات',
+            'نحترم خصوصيتك ونتعامل مع بياناتك وفقًا لسياسة الخصوصية.\n\nقد نستخدم بياناتك لتحسين الخدمات أو التواصل معك، دون مشاركتها مع أطراف غير مخولة.',
+          ),
+          
+          _buildSection(
+            context,
+            'j) التعديلات على الشروط',
+            'يحق للتطبيق تعديل الشروط والأحكام في أي وقت.\n\nيجب على المستخدم مراجعة الشروط باستمرار للاستمرار في استخدام التطبيق.',
+          ),
+          
+          _buildSection(
+            context,
+            'k) إخلاء المسؤولية',
+            'قد يتأثر وقت وصول خدمة الإسعاف بعوامل خارجة عن إرادتنا (الازدحام، الظروف الجوية، الطوارئ).\n\nالتطبيق غير مسؤول عن أي خسائر مباشرة أو غير مباشرة ناتجة عن استخدام الخدمة.',
+          ),
+          
+          _buildSection(
+            context,
+            'l) القانون المعمول به',
+            'تخضع هذه الشروط لقوانين المملكة العربية السعودية، ويكون لأي نزاع علاقة بها الولاية القضائية للمحاكم السعودية.',
+          ),
+          
+          _buildSection(
+            context,
+            'm) التواصل',
+            'للاستفسارات أو الشكاوى، يمكنك التواصل عبر:\n\n📞 رقم الهاتف: 920008274 / واتساب 966568173627\n\n✉️ البريد الإلكتروني: info@mca.sa.com',
+          ),
+          
+          const CustomSizedBox(height: 32),
+        ],
+      ),
+    );
+  }
 
-            // Error state: show retry
-            if (cubit.baseErrorModel != null &&
-                (cubit.getAppSettingModel?.data?.termsUser == null)) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      cubit.baseErrorModel?.message ?? "حدث خطأ في جلب البيانات",
-                      textAlign: TextAlign.center,
-                      style: CustomThemes.greyColor49TextTheme(context).copyWith(
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                    const CustomSizedBox(height: 16),
-                    CustomElevatedButton(
-                      onPressed: () {
-                        cubit.baseErrorModel = null;
-                        cubit.getAppSettings();
-                      },
-                      text: "إعادة المحاولة",
-                      backgroundColor: AppColors.primaryColor,
-                      foregroundColor: AppColors.whiteColor,
-                    ),
-                  ],
-                ),
-              );
-            }
-
-            // Empty state
-            if (cubit.getAppSettingModel?.data?.termsUser == null ||
-                (cubit.getAppSettingModel!.data!.termsUser!.isEmpty)) {
-              return Center(
-                child: Text(
-                  "لا توجد شروط وأحكام متاحة",
-                  style: CustomThemes.greyColor49TextTheme(context).copyWith(
-                    fontSize: 16.sp,
-                  ),
-                ),
-              );
-            }
-
-            // Content
-            return ListView(
-              padding: EdgeInsets.symmetric(
-                horizontal: 16.w,
-                vertical: 32.h,
-              ),
-              children: [
-                Text(
-                  "الشروط و الاحكام",
-                  style: CustomThemes.primaryColorTextTheme(context).copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16.sp,
-                  ),
-                ),
-                const CustomSizedBox(height: 24),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: 16.h),
-                      child: Text(
-                        cubit.getAppSettingModel?.data?.termsUser?[index].desc ?? '',
-                        style: CustomThemes.greyColor49TextTheme(context).copyWith(
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                    );
-                  },
-                  itemCount: cubit.getAppSettingModel?.data?.termsUser?.length ?? 0,
-                )
-              ],
-            );
-          }),
+  Widget _buildSection(BuildContext context, String title, String content) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: CustomThemes.primaryColorTextTheme(context).copyWith(
+            fontWeight: FontWeight.w600,
+            fontSize: 16.sp,
+          ),
+        ),
+        const CustomSizedBox(height: 8),
+        Text(
+          content,
+          style: CustomThemes.greyColor49TextTheme(context).copyWith(
+            fontSize: 14.sp,
+            height: 1.6,
+          ),
+        ),
+        const CustomSizedBox(height: 20),
+      ],
     );
   }
 }

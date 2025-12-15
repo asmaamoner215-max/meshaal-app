@@ -156,36 +156,25 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                   const CustomSizedBox(
                     height: 16,
                   ),
+                  CustomTextField(
+                    hintText: "رقم الهوية",
+                    controller: idNumber,
+                    maxLines: 1,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "برجاء ادخال البيانات";
+                      }
+                      return null;
+                    },
+                  ),
+                  const CustomSizedBox(
+                    height: 16,
+                  ),
                   PhoneTextField(
                     controller: phoneController,
                   ),
                   const CustomSizedBox(
                     height: 16,
-                  ),
-                  SizeTransition(
-                    sizeFactor: animation,
-                    child: Column(
-                      children: [
-                        CustomTextField(
-                          hintText: "رقم لوحة السيارة",
-                          filled: true,
-                          controller: plateNumber,
-                          validator: _isSelected
-                              ? (value) {
-                                  if (value!.isEmpty) {
-                                    return "برجاء ادخال رقم لوحة السيارة";
-                                  } else {
-                                    return null;
-                                  }
-                                }
-                              : null,
-                          fillColor: AppColors.whiteColor,
-                        ),
-                        const CustomSizedBox(
-                          height: 16,
-                        ),
-                      ],
-                    ),
                   ),
                   PasswordTextField(
                     controller: passwordController,
@@ -260,19 +249,30 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                   const CustomSizedBox(
                     height: 16,
                   ),
-                  CustomTextField(
-                    hintText: "رقم الهوية",
-                    controller: idNumber,
-                    maxLines: 1,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "برجاء ادخال البيانات";
-                      }
-                      return null;
-                    },
-                  ),
-                  const CustomSizedBox(
-                    height: 16,
+                  SizeTransition(
+                    sizeFactor: animation,
+                    child: Column(
+                      children: [
+                        CustomTextField(
+                          hintText: "رقم لوحة السيارة",
+                          filled: true,
+                          controller: plateNumber,
+                          validator: _isSelected
+                              ? (value) {
+                                  if (value!.isEmpty) {
+                                    return "برجاء ادخال رقم لوحة السيارة";
+                                  } else {
+                                    return null;
+                                  }
+                                }
+                              : null,
+                          fillColor: AppColors.whiteColor,
+                        ),
+                        const CustomSizedBox(
+                          height: 16,
+                        ),
+                      ],
+                    ),
                   ),
                   CustomElevatedButton(
                     backgroundColor: AppColors.primaryColor,
