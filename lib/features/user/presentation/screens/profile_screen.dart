@@ -46,6 +46,13 @@ class ProfileScreen extends StatelessWidget {
             },
           ),
           ProfileItemWidget(
+            title: "إقرار وتعهد بنقل المريض",
+            assetPath: SvgPath.terms,
+            onPressed: () {
+              Navigator.pushNamed(context, ScreenName.patientTransferAcknowledgementScreen);
+            },
+          ),
+          ProfileItemWidget(
             title: "رحلاتي",
             assetPath: SvgPath.orders,
             onPressed: () {

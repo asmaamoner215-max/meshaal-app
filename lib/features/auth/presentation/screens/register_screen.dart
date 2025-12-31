@@ -160,6 +160,8 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                     hintText: "رقم الهوية",
                     controller: idNumber,
                     maxLines: 1,
+                    filled: true,
+                    fillColor: AppColors.whiteColor,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "برجاء ادخال البيانات";

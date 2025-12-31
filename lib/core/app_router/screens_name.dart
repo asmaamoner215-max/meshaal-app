@@ -37,5 +37,6 @@ class ScreenName {
   static const vendorOrderDetailsScreen = "vendorOrderDetailsScreen";
   static const termsAndConditionsScreen = "termsAndConditionsScreen";
   static const acknowledgmentScreen = "acknowledgment";
+  static const patientTransferAcknowledgementScreen = "patientTransferAcknowledgement";
   static const vendorProfileScreen = "vendorProfileScreen";
 }

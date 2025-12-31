@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  bool rememberMe = false;
+  bool rememberMe = true; // تعيين القيمة الافتراضية إلى true
 
   @override
   void initState() {
@@ -39,13 +39,15 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _loadSavedCredentials() {
-    final savedRemember = CacheHelper.getBoolean(key: CacheKeys.rememberMe) ?? false;
+    final savedRemember = CacheHelper.getBoolean(key: CacheKeys.rememberMe) ?? true; // تعيين الافتراضي إلى true
     if (savedRemember) {
       final savedPhone = CacheHelper.getData(key: CacheKeys.savedLoginPhone) as String?;
       final savedPassword = CacheHelper.getData(key: CacheKeys.savedLoginPassword) as String?;
       if (savedPhone != null) phoneController.text = savedPhone;
       if (savedPassword != null) passwordController.text = savedPassword;
       rememberMe = true;
+    } else {
+      rememberMe = false;
     }
   }
 
@@ -72,6 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
             } else if (state is LoginSuccessState) {
               Navigator.pop(context); // Close loading dialog
               if (state.loginDataModel?.status == true) {
+                // حفظ البيانات عند نجاح تسجيل الدخول
+                _persistCredentials();
                 showToast(
                   errorType: 0,
                   message: state.loginDataModel?.message ?? "تسجيل دخول ناجح",
@@ -215,7 +219,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       print(phoneController);
                       print(passwordController);
                       if (formKey.currentState!.validate()) {
-                        _persistCredentials();
                         cubit.login(
                           loginParameters: LoginParameters(
                               deviceToken: CacheHelper.getData(key: CacheKeys.fcmToken) as String?,
