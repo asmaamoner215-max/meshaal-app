@@ -14,7 +14,6 @@ import 'package:weam/features/user/presentation/screens/choose_direction_screen.
 import 'package:weam/features/user/presentation/screens/complete_request_ambulance_form_first_screen.dart';
 import 'package:weam/features/user/presentation/screens/edit_profile_screen.dart';
 import 'package:weam/features/user/presentation/screens/patien_details_screen.dart';
-import 'package:weam/features/user/presentation/screens/patient_transfer_acknowledgement_screen.dart';
 import 'package:weam/features/user/presentation/screens/payment_screen.dart';
 import 'package:weam/features/user/presentation/screens/profile_screen.dart';
 import 'package:weam/features/user/presentation/screens/request_doctor_and_confirm_screen.dart';
@@ -112,8 +111,6 @@ class AppRouter {
           return MaterialPageRoute(builder: (_) => const TermsAndConditionsScreen());
         case ScreenName.acknowledgmentScreen:
           return MaterialPageRoute(builder: (_) => const AcknowledgeScreen());
-        case ScreenName.patientTransferAcknowledgementScreen:
-          return MaterialPageRoute(builder: (_) => const PatientTransferAcknowledgementScreen());
         case ScreenName.vendorProfileScreen:
           return MaterialPageRoute(builder: (_) => const VendorProfileScreen());
         case ScreenName.chooseDirectionsScreen:
