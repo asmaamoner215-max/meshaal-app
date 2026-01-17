@@ -31,7 +31,7 @@ class _RequestAmbPatientScreenScreenState extends State<RequestAmbPatientScreenS
       appBar: PreferredSize(
         preferredSize: preferredSize,
         child: const CustomAppBar(
-          title: "تفاصيل المريض",
+          title: "الحالة الصحية للمريض",
         ),
       ),
       body: BlocConsumer<UserRequestsCubit, UserRequestsState>(
@@ -56,7 +56,7 @@ class _RequestAmbPatientScreenScreenState extends State<RequestAmbPatientScreenS
                   ),
                 ),
                 Text(
-                  " ادخال وزن المريض ؟",
+                  "ادخل وزن المريض",
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: CustomThemes.greyColor49TextTheme(context).copyWith(
@@ -207,15 +207,6 @@ class _RequestAmbPatientScreenScreenState extends State<RequestAmbPatientScreenS
                 ),
                 const CustomSizedBox(
                   height: 16,
-                ),
-                Text(
-                  "يرجي ارفاق تقرير طبي او تذكرة طيران في حالة السفر",
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
-                  style: CustomThemes.greyColor49TextTheme(context).copyWith(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
                 ),
                 Text(
                   "هل المريض لدية حجز طيران مؤكد ؟",
@@ -439,8 +430,20 @@ class _RequestAmbPatientScreenScreenState extends State<RequestAmbPatientScreenS
                 const CustomSizedBox(
                   height: 16,
                 ),
+                Text(
+                  "ملاحظات إضافية",
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: CustomThemes.greyColor49TextTheme(context).copyWith(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const CustomSizedBox(
+                  height: 8,
+                ),
                 CustomTextField(
-                  hintText: "المزيد من التفاصيل",
+                  hintText: "ملاحظات إضافية",
                   keyboardType: TextInputType.text,
                   maxLines: 5,
                   validator: (value) {

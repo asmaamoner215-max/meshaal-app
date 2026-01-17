@@ -112,9 +112,11 @@ class _StartRequestScreenState extends State<StartRequestScreen> {
                           fillColor: AppColors.whiteColor,
                           borderRadius: 12,
                           filled: true,
-                          //   onSubmitted: (value) {
-                          //   cubit.searchPlaces(value);
-                          // },
+                          textInputAction: TextInputAction.search,
+                          onSubmitted: (value) {
+                            FocusManager.instance.primaryFocus?.unfocus();
+                            cubit.searchPlaces(value);
+                          },
                           controller: searchController,
                           hintStyle: CustomThemes.greyColorC6TextTheme(context).copyWith(
                             fontSize: 16.sp,
@@ -217,7 +219,7 @@ class _StartRequestScreenState extends State<StartRequestScreen> {
                     height: 16,
                   ),
                   CustomElevatedButton(
-                    text: "استكمال الطلب",
+                    text: "حفظ ومتابعة",
                     width: double.infinity,
                     onPressed: () {
                       Navigator.pushNamed(

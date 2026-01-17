@@ -20,6 +20,8 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
   final int? minLines;
   final TextStyle? hintStyle;
+  final TextInputAction? textInputAction;
+  final Function(String)? onSubmitted;
   final String? Function(String?)? validator;
 
   const CustomTextField({
@@ -41,6 +43,8 @@ class CustomTextField extends StatelessWidget {
     this.maxLines,
     this.minLines,
     this.keyboardType,
+    this.textInputAction,
+    this.onSubmitted,
   });
 
   @override
@@ -72,6 +76,8 @@ class CustomTextField extends StatelessWidget {
       focusNode: focusNode,
       validator: validator,
       maxLines: maxLines,
+      textInputAction: textInputAction,
+      onFieldSubmitted: onSubmitted,
       onTapOutside: (PointerDownEvent event) {
         FocusManager.instance.primaryFocus?.unfocus();
       },

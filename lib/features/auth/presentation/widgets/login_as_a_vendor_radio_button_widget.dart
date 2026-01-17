@@ -29,7 +29,7 @@ class _LoginAsAVendorRadioButtonState extends State<LoginAsAVendorRadioButton> {
       },
       titleAlignment: ListTileTitleAlignment.top,
       title: Text(
-        " تسجل دخول كمسعف او شريك",
+        "تسجل دخول كـ (سائق / مسعف)",
         textAlign: TextAlign.start,
         style: CustomThemes.greyColor49TextTheme(context).copyWith(
           fontSize: 16.sp,

@@ -217,7 +217,7 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                     },
                     titleAlignment: ListTileTitleAlignment.top,
                     title: Text(
-                      " انشاء حساب كمسعف او شريك",
+                      "انشاء حساب كـ (سائق / مسعف)",
                       textAlign: TextAlign.start,
                       style: CustomThemes.greyColor49TextTheme(context).copyWith(
                         fontSize: 16.sp,
@@ -295,7 +295,7 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                         );
                       }
                     },
-                    text: "تسجيل الدخول",
+                    text: "إنشاء حساب",
                     titleStyle: CustomThemes.whiteColorTextTheme(context)
                         .copyWith(fontSize: 16.sp, fontWeight: FontWeight.w400),
                     padding: EdgeInsets.symmetric(

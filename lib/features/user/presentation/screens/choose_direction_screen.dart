@@ -57,6 +57,18 @@ class _ChooseDirectionScreenState extends State<ChooseDirectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.primaryColor,
+        elevation: 0,
+        title: Text(
+          "يرجى تحديد موقعك ونوع الرحلة",
+          style: CustomThemes.whiteColorTextTheme(context).copyWith(
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: BlocConsumer<UserRequestsCubit, UserRequestsState>(
         listener: (context, state) {
           UserRequestsCubit cubit = UserRequestsCubit.get(context);
@@ -127,9 +139,11 @@ class _ChooseDirectionScreenState extends State<ChooseDirectionScreen> {
                         fillColor: AppColors.whiteColor,
                         borderRadius: 12,
                         filled: true,
-                        //   onSubmitted: (value) {
-                        //   cubit.searchPlaces(value);
-                        // },
+                        textInputAction: TextInputAction.search,
+                        onSubmitted: (value) {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          cubit.searchPlaces(value);
+                        },
                         controller: searchController,
                         hintStyle:
                             CustomThemes.greyColorC6TextTheme(context).copyWith(

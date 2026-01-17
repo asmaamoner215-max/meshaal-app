@@ -40,7 +40,7 @@ class _RequestDoctorAndConfirmScreenState extends State<RequestDoctorAndConfirmS
       appBar: PreferredSize(
         preferredSize: preferredSize,
         child: const CustomAppBar(
-          title: "تأكيد الطلب",
+          title: "يرجى تحديد نقطة الوصول",
         ),
       ),
       body: BlocConsumer<UserRequestsCubit, UserRequestsState>(
@@ -140,9 +140,11 @@ class _RequestDoctorAndConfirmScreenState extends State<RequestDoctorAndConfirmS
                         fillColor: AppColors.whiteColor,
                         borderRadius: 12,
                         filled: true,
-                        //   onSubmitted: (value) {
-                        //   cubit.searchPlaces(value);
-                        // },
+                        textInputAction: TextInputAction.search,
+                        onSubmitted: (value) {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          cubit.searchPlaces(value);
+                        },
                         controller: searchController,
                         hintStyle: CustomThemes.greyColorC6TextTheme(context).copyWith(
                           fontSize: 16.sp,
@@ -260,66 +262,15 @@ class _RequestDoctorAndConfirmScreenState extends State<RequestDoctorAndConfirmS
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "اسم الوجهة",
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                textAlign: TextAlign.start,
-                                style: CustomThemes.greyColor49TextTheme(context).copyWith(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              RichText(
-                                text: TextSpan(
-                                  text: cubit.priceModel == null
-                                      ? "اطلب سعر"
-                                      : cubit.priceModel?.total ?? "",
-                                  style: cubit.promoModel != null
-                                      ? CustomThemes.greyColor49TextTheme(context).copyWith(
-                                          fontSize: 14.sp,
-                                          decoration: TextDecoration.lineThrough,
-                                          decorationColor: AppColors.greyColor49,
-                                          fontWeight: FontWeight.w700,
-                                        )
-                                      : CustomThemes.primaryColorTextTheme(context).copyWith(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                  children: [
-                                    if (cubit.promoModel != null)
-                                      TextSpan(
-                                        text: "  ${cubit.promoModel?.total ?? ""} ",
-                                        style: CustomThemes.primaryColorTextTheme(context).copyWith(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    TextSpan(
-                                      text: cubit.priceModel != null ? " ريـال" : "",
-                                      style: CustomThemes.primaryColorTextTheme(context).copyWith(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              // Text(
-                              //   ",",
-                              //   overflow: TextOverflow.ellipsis,
-                              //   maxLines: 1,
-                              //   style:
-                              //       CustomThemes.primaryColorTextTheme(context)
-                              //           .copyWith(
-                              //     fontSize: 16.sp,
-                              //     fontWeight: FontWeight.w700,
-                              //   ),
-                              // ),
-                            ],
+                          Text(
+                            "اسم الوجهة",
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            textAlign: TextAlign.start,
+                            style: CustomThemes.greyColor49TextTheme(context).copyWith(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                           const CustomSizedBox(
                             height: 16,
@@ -512,10 +463,66 @@ class _RequestDoctorAndConfirmScreenState extends State<RequestDoctorAndConfirmS
                       ),
                     ),
                     const CustomSizedBox(
+                      height: 8,
+                    ),
+                    if (cubit.priceModel != null)
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20.w,
+                          vertical: 16.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12.r),
+                          border: Border.all(
+                            color: AppColors.primaryColor,
+                            width: 2,
+                          ),
+                        ),
+                        child: Center(
+                          child: RichText(
+                            text: TextSpan(
+                              text: cubit.priceModel?.total ?? "",
+                              style: cubit.promoModel != null
+                                  ? CustomThemes.greyColor49TextTheme(context).copyWith(
+                                      fontSize: 20.sp,
+                                      decoration: TextDecoration.lineThrough,
+                                      decorationColor: AppColors.greyColor49,
+                                      fontWeight: FontWeight.w900,
+                                    )
+                                  : CustomThemes.primaryColorTextTheme(context).copyWith(
+                                      fontSize: 28.sp,
+                                      fontWeight: FontWeight.w900,
+                                      color: AppColors.primaryColor,
+                                    ),
+                              children: [
+                                if (cubit.promoModel != null)
+                                  TextSpan(
+                                    text: "  ${cubit.promoModel?.total ?? ""} ",
+                                    style: CustomThemes.primaryColorTextTheme(context).copyWith(
+                                      fontSize: 28.sp,
+                                      fontWeight: FontWeight.w900,
+                                      color: AppColors.primaryColor,
+                                    ),
+                                  ),
+                                TextSpan(
+                                  text: " ريـال",
+                                  style: CustomThemes.primaryColorTextTheme(context).copyWith(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w900,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    const CustomSizedBox(
                       height: 16,
                     ),
                     CustomElevatedButton(
-                      text: "اطلب فورا",
+                      text: "تأكيد وحجز",
                       onPressed: cubit.priceModel != null
                           ? () {
                               showDialog(

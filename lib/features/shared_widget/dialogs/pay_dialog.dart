@@ -33,7 +33,7 @@ class PayDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              "طلب زيارة",
+              "إتمام عملية الدفع",
               style: CustomThemes.primaryColorTextTheme(context).copyWith(
                 fontSize: 24.sp,
                 fontWeight: FontWeight.w400,
@@ -49,7 +49,7 @@ class PayDialog extends StatelessWidget {
             Align(
               alignment: AlignmentDirectional.centerStart,
               child: Text(
-                "لتأكيد الطلب رجاء الذهاب الى صفحة الدفع؟",
+                "لتأكيد الطلب يرجى الذهاب الى صفحة الدفع.",
                 style: CustomThemes.greyColor49TextTheme(context).copyWith(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w400,
