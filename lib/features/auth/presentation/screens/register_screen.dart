@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/enums/user_type_enum.dart';
 import '../../../../core/parameters/auth_parameters/register_parameters.dart';
-import '../../../../features/auth/presentation/screens/otp_screen.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/constants/reg_exp.dart';
+import '../../../../core/services/messaging_service.dart';
 import '../../../../features/shared_widget/custom_text_form_field.dart';
 import '../../../../core/app_router/screens_name.dart';
 import '../../../../core/app_theme/custom_themes.dart';
@@ -70,18 +70,14 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                 Navigator.pop(context);
                 showToast(
                   errorType: 0,
-                  message: state.registerModel?.message ?? "",
+                  message: state.registerModel?.message ?? "تم إنشاء حسابك بنجاح",
                 ).then((value) {
                   if (state.registerModel != null && context.mounted) {
+                    // Direct navigation to home without OTP verification
                     Navigator.pushNamedAndRemoveUntil(
                       context,
-                      ScreenName.otpScreen,
+                      ScreenName.homeScreen,
                       (route) => false,
-                      arguments: OtpArguments(
-                        phone: state.registerModel?.phone ?? "",
-                        code: state.registerModel?.code ?? 0000,
-                        isForgetPassword: false,
-                      ),
                     );
                   }
                 });
@@ -278,8 +274,11 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                   ),
                   CustomElevatedButton(
                     backgroundColor: AppColors.primaryColor,
-                    onPressed: () {
+                    onPressed: () async {
                       if (formKey.currentState!.validate()) {
+                        // Get FCM token
+                        final fcmToken = await MessagingService.getFCMToken();
+                        
                         cubit.register(
                           registerParameters: RegisterParameters(
                             name: nameController.text,
@@ -289,6 +288,7 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                             email: emailController.text,
                             password: passwordController.text,
                             idNumber: idNumber.text,
+                            fcmToken: fcmToken,
                             type:
                                 _isSelected ? UserTypeEnum.provider.name : UserTypeEnum.client.name,
                           ),

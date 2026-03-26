@@ -14,6 +14,7 @@ class RegisterParameters extends Equatable {
   final String? plateId;
   final String? deviceToken;
   final String? idNumber;
+  final String? fcmToken;
 
   const RegisterParameters({
     required this.name,
@@ -25,6 +26,7 @@ class RegisterParameters extends Equatable {
     this.idNumber,
     required this.password,
     required this.type,
+    this.fcmToken,
   });
 
   Future<Map<String, dynamic>> toJson() async {
@@ -42,6 +44,7 @@ class RegisterParameters extends Equatable {
           ),
         ),
       if (deviceToken != null) "device_token": deviceToken,
+      if (fcmToken != null) "fcm_token": fcmToken,
       if (plateId != null) "plate_num": plateId,
       if (idNumber != null) 'id_number': idNumber,
     };
@@ -53,5 +56,6 @@ class RegisterParameters extends Equatable {
         phone,
         password,
         type,
+        fcmToken,
       ];
 }
