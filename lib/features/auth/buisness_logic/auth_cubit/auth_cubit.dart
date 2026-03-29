@@ -125,6 +125,12 @@ class AuthCubit extends Cubit<AuthState> {
         );
       },
       (r) async {
+        if (r.status == true && r.data != null) {
+          await handleCache(
+            token: r.data!.token ?? "",
+            userType: r.data!.type ?? "",
+          );
+        }
         emit(
           RegisterSuccessState(registerModel: r),
         );

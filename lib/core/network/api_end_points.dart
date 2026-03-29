@@ -1,6 +1,8 @@
 class EndPoints {
+  // Use http://10.0.2.2:8080/api if testing on Android Emulator
+  // Use http://localhost:8080/api if testing on Windows Desktop
   static const baseUrl = 'https://mca.sa.com/api';
-  static const imageBaseUrl = 'https://mca.sa.com/storage/app/public/';
+  static const imageBaseUrl = 'https://mca.sa.com/storage/';
   static const register = '/signup_api';
   static const getNationality = '/get_nationalities';
   static const postCarOrder = '/post_orders_car';
