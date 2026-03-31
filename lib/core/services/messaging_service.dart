@@ -59,7 +59,7 @@ class MessagingService {
       final androidPlugin =
           flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>();
-      final granted = await androidPlugin?.requestNotificationPermission() ?? true;
+      final granted = await androidPlugin?.requestNotificationsPermission() ?? true;
       print('Android notification permission: $granted');
     } else if (Platform.isIOS) {
       final iOSPlugin = flutterLocalNotificationsPlugin

@@ -76,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                     // Direct navigation to home without OTP verification
                     Navigator.pushNamedAndRemoveUntil(
                       context,
-                      ScreenName.homeScreen,
+                      ScreenName.userMainLayoutScreen,
                       (route) => false,
                     );
                   }
